@@ -41,9 +41,9 @@ return [
             'provider' => 'users',
         ],
 
-        'users' => [
+        'creator' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'creators',
         ],
 
         'admin' => [
@@ -74,6 +74,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'creators' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Creator::class,
         ],
 
         'admins' => [
@@ -109,6 +114,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'creators' => [
+            'provider' => 'creators',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Creator;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminProfileUpdateRequest;
+use App\Http\Requests\CreatorProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/Admin/Edit', [
+        return Inertia::render('Profile/Creator/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -28,7 +28,7 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(AdminProfileUpdateRequest $request): RedirectResponse
+    public function update(CreatorProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
@@ -38,7 +38,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('admin.profile.edit');
+        return Redirect::route('creator.profile.edit');
     }
 
     /**
@@ -53,7 +53,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         // Auth::logout(); 変更前
-        Auth::guard('admin')->logout();
+        Auth::guard('creator')->logout();
 
         $user->delete();
 

@@ -43,6 +43,8 @@ class LoginRequest extends FormRequest
 
         if($this->is('admin/*')){
             $guard = 'admin';
+        } elseif($this->is('creator/*')){
+            $guard = 'creator';
         } else {
             $guard = 'web';
         }

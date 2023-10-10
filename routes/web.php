@@ -35,3 +35,12 @@ Route::prefix('admin')->name('admin.')->group(function(){
     
     require __DIR__.'/admin.php';
 });
+
+Route::prefix('creator')->name('creator.')->group(function(){
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Creator/Dashboard');
+    })->middleware(['auth:creator', 'verified'])->name('dashboard');
+    
+    require __DIR__.'/creator.php';
+});
