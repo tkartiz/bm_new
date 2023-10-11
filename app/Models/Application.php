@@ -10,8 +10,12 @@ class Application extends Model
     use HasFactory;
 
     protected $fillable = [
+        'client_id',
         'subject',
         'works_quantity',
+        'severity',
+        'revision',
+        'applicated_at',
         'desired_dlvd_at',
     ];
 }

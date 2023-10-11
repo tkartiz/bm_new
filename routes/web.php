@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\WorkspecController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\ApplicationController;
 */
 
 Route::resource('applications', ApplicationController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('workspecs', WorkspecController::class)
 ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {

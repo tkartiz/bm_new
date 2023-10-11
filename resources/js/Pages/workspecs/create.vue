@@ -19,17 +19,9 @@ const form = reactive({
     desired_dlvd_at: null,
 })
 
-// sv-SEロケールはYYYY-MM-DD形式の日付文字列を戻すので使用する
-var today = new Date().toLocaleDateString('sv-SE')
-
 const storeApplication = () => {
-    form.client_id = document.getElementById('client_id').value;
-    form.revision = 0;
-    form.applicated_at = today;
-
     Inertia.post('/applications', form)
 }
-
 </script>
 
 <template>
@@ -49,54 +41,22 @@ const storeApplication = () => {
                                 <!-- 依頼者情報 -->
                                 <div class="px-5 py-2 bg-white mb-5">
                                     <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
-                                        <p class="w-1/3">申請番号：</p>
+                                        <p class="w-1/3">申請番号：{{ application.id }}</p>
                                         <p class="w-1/3">依頼者：{{ user.name }}</p>
                                         <p class="w-1/3">所属：{{ user.affiliation }}</p>
                                     </div>
                                 </div>
 
                                 <!-- 申請内容 -->
-                                <input type="integer" id="client_id" name="client_id" v-bind:value="user.id" class="hidden">
-                                <div class="p-3 flex flex-wrap bg-white">
-                                    <div class="p-2 w-4/5">
-                                        <div class="relative">
-                                            <label for="subject" class="leading-7 text-sm text-gray-600">品名</label>
-                                            <input type="text" id="subject" v-model="form.subject"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-1/5">
-                                        <div class="relative">
-                                            <label for="desired_dlvd_at"
-                                                class="leading-7 text-sm text-gray-600">希望納期</label>
-                                            <input type="date" id="desired_dlvd_at" v-model="form.desired_dlvd_at"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-1/5">
-                                        <div class="relative">
-                                            <label for="works_quantity" class="leading-7 text-sm text-gray-600">依頼点数</label>
-                                            <input type="integer" id="works_quantity" v-model="form.works_quantity"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-3/5"></div>
-                                    <div class="p-2 w-1/5">
-                                        <div class="relative">
-                                            <label for="severity" class="leading-7 text-sm text-gray-600">緊急度</label>
-                                            <input type="text" id="severity" v-model="form.severity"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <!-- <div class="p-2 w-8/12"></div>
+                                    <div class="p-2 w-8/12"></div>
                                     <div class="p-2 w-2/12 text-center">
                                         <p class="leading-7 lh-sm text-sm text-gray-600">見積金額（税抜）<br>￥**,***</p>
                                     </div>
                                     <div class="p-2 w-2/12 text-center">
                                         <p class="leading-7 lh-sm text-sm text-gray-600">見積金額（税込）<br>￥**,***</p>
-                                    </div> -->
+                                    </div>
 
-                                    <!-- <div class="p-2 w-full -mb-4">内訳：</div>
+                                    <div class="p-2 w-full -mb-4">内訳：</div>
                                     <div class="p-2 w-full flex text-center -mb-5">
                                         <div class="p-2 w-1/12">制作No.</div>
                                         <div class="p-2 w-2/12">サイズ</div>
@@ -105,10 +65,10 @@ const storeApplication = () => {
                                         <div class="p-2 w-1/12">数量</div>
                                         <div class="p-2 w-1/12">金額<br>（税抜）</div>
                                         <div class="p-2 w-1/12">金額<br>（税込）</div>
-                                    </div> -->
+                                    </div>
 
                                     <!-- 申請内容・内訳 -->
-                                    <!-- <div class="p-2 w-full text-center">
+                                    <div class="p-2 w-full text-center">
                                         <div class="mb-5">
                                             <div class="w-full flex">
                                                 <div class="p-1 w-1/12">
@@ -168,11 +128,11 @@ const storeApplication = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="w-7/12 mx-auto my-10">
                                     <button type="submit"
-                                        class="w-full mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl">申請書を作成する</button>
+                                        class="w-full mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl">制作物仕様を作成する</button>
                                 </div>
                             </form>
                         </section>

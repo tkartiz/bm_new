@@ -42,14 +42,17 @@ class ApplicationController extends Controller
      */
     public function store(StoreapplicationRequest $request)
     {
-        application::create([
-            'client_id' => user.id,
+        Application::create([
+            'client_id' => $request->client_id,
             'subject' => $request->subject,
-            'desired_dlvd_at' => $request->desired_dlvd_at,
             'works_quantity' => $request->works_quantity,
             'severity' => $request->severity,
+            'revision' => $request->revision,
+            'applicated_at' => $request->applicated_at,
+            'desired_dlvd_at' => $request->desired_dlvd_at,
         ]);
 
+        // return to_route('workspecs.create');
         return to_route('applications.index');
     }
 

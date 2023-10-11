@@ -22,7 +22,10 @@ class WorkspecController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('workspecs/create', [
+            'user' => Auth::user(),
+            'application' => Model::Application()
+        ]);
     }
 
     /**
