@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Workspec;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWorkspecRequest;
 use App\Http\Requests\UpdateWorkspecRequest;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+
 
 class WorkspecController extends Controller
 {
@@ -24,7 +28,7 @@ class WorkspecController extends Controller
     {
         return Inertia::render('workspecs/create', [
             'user' => Auth::user(),
-            'application' => Model::Application()
+            'applications' => Application::all()
         ]);
     }
 

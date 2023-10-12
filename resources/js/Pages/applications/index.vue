@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
+import FlashMessage from '@/Components/FlashMessage.vue';
+
 defineProps({
     applications: Array
 })
@@ -19,13 +21,14 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-8 mx-auto">
+                            <FlashMessage />
                             <div class="w-full mx-auto overflow-auto">
                                 <table class="table-auto w-full text-center whitespace-no-wrap">
                                     <thead>
                                         <tr>
                                             <th
                                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                                                No.</th>
+                                                申請番号</th>
                                             <th
                                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 申請者名</th>
@@ -57,24 +60,28 @@ defineProps({
                                     </thead>
                                     <tbody>
                                         <tr v-for="application in applications" :key="application.id">
-                                            <td class="px-2 py-3">{{ application.id }}</td>
+                                            <td class="px-2 py-3">
+                                                <Link class="text-blue-400" :href="route('applications.show', { application: application.id })">
+                                                    {{ application.id }}
+                                                </Link>
+                                            </td>
                                             <td class="px-2 py-3">{{ application.client_id }}</td>
                                             <td class="px-2 py-3">{{ application.subject }}</td>
                                             <td class="px-2 py-3">{{ application.works_quantity }}</td>
-                                        <td class="px-2 py-3">{{ application.severity }}</td>
-                                        <td class="px-2 py-3">{{ application.revision }}</td>
-                                        <td class="px-2 py-3">{{ application.applicated_at }}</td>
-                                        <td class="px-2 py-3">{{ application.desired_dlvd_at }}</td>
-                                        <td class="px-2 py-3">{{ application.ttl_price_exc }}</td>
-                                        <td class="px-2 py-3">{{ application.ttl_price_incl }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <td class="px-2 py-3">{{ application.severity }}</td>
+                                            <td class="px-2 py-3">{{ application.revision }}</td>
+                                            <td class="px-2 py-3">{{ application.applied_at }}</td>
+                                            <td class="px-2 py-3">{{ application.desired_dlvd_at }}</td>
+                                            <td class="px-2 py-3">{{ application.ttl_price_exc }}</td>
+                                            <td class="px-2 py-3">{{ application.ttl_price_incl }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <!-- <Link as="button" :href="route('applications.create')" class="w-full bg-indigo-700 font-semibold text-white py-2 px-4 rounded">新規申請</Link> -->
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-</AuthenticatedLayout></template>
+    </AuthenticatedLayout>
+</template>

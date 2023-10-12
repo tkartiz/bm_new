@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\application;
+use App\Models\Application;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreapplicationRequest;
 use App\Http\Requests\UpdateapplicationRequest;
 use Inertia\Inertia;
@@ -18,7 +19,7 @@ class ApplicationController extends Controller
     public function index()
     {
         return Inertia::render('applications/index', [
-            'applications' => application::all()
+            'applications' => Application::all()
         ]);
     }
 
@@ -52,8 +53,11 @@ class ApplicationController extends Controller
             'desired_dlvd_at' => $request->desired_dlvd_at,
         ]);
 
-        // return to_route('workspecs.create');
-        return to_route('applications.index');
+        return to_route('applications.index')
+            ->with([
+                'message' => '登録しました。',
+                'status' => 'success',
+            ]);
     }
 
     /**
@@ -64,7 +68,11 @@ class ApplicationController extends Controller
      */
     public function show(application $application)
     {
-        //
+        // dd($application);
+
+        return Inertia::render('applications/show', [
+            'application' => $application
+        ]);
     }
 
     /**
@@ -75,7 +83,9 @@ class ApplicationController extends Controller
      */
     public function edit(application $application)
     {
-        //
+        return Inertia::render('applications/edit', [
+            'application' => $application
+        ]);
     }
 
     /**
@@ -87,7 +97,20 @@ class ApplicationController extends Controller
      */
     public function update(UpdateapplicationRequest $request, application $application)
     {
-        //
+        $application->client_id = $request->client_id;
+        $application->subject = $request->subject;
+        $application->works_quantity = $request->works_quantity;
+        $application->severity = $request->severity;
+        $application->revision = $request->revision;
+        $application->applicated_at = $request->applicated_at;
+        $application->desired_dlvd_at = $request->desired_dlvd_at;
+        $application->save();
+
+        return to_route('applications.index')
+            ->with([
+                'message' => '更新しました。',
+                'status' => 'success'
+            ]);
     }
 
     /**
@@ -98,6 +121,12 @@ class ApplicationController extends Controller
      */
     public function destroy(application $application)
     {
-        //
+        $application->delete();
+
+        return to_route('applications.index')
+            ->with([
+                'message' => '削除しました。',
+                'status' => 'danger'
+            ]);
     }
 }

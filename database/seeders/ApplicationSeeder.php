@@ -19,7 +19,7 @@ class ApplicationSeeder extends Seeder
         DB::table('applications')->insert([
             [
                 'client_id' => 1,
-                'subject' => '看板1',
+                'subject' => '秋祭りイベント',
                 'works_quantity' => 3,
                 'works1_id' => 1,
                 'works2_id' => 2,
@@ -28,12 +28,12 @@ class ApplicationSeeder extends Seeder
                 'works5_id' => null,
                 'severity' => '通常',
                 'revision' => 0,
-                'applicated_at' => date('2023-10-01'),
+                'applicated_at' => null,
                 'desired_dlvd_at' => date('2023-12-10')
             ],
             [
                 'client_id' => 1,
-                'subject' => '看板2',
+                'subject' => 'ハロウィーンイベント',
                 'works_quantity' => 5,
                 'works1_id' => 4,
                 'works2_id' => 5,
@@ -42,12 +42,12 @@ class ApplicationSeeder extends Seeder
                 'works5_id' => 8,
                 'severity' => '通常',
                 'revision' => 0,
-                'applicated_at' => date('2023-10-01'),
+                'applicated_at' => null,
                 'desired_dlvd_at' => date('2023-12-25')
             ],
             [
                 'client_id' => 1,
-                'subject' => '看板3',
+                'subject' => 'オクトーバーフェストイベント',
                 'works_quantity' => 1,
                 'works1_id' => 9,
                 'works2_id' => null,
@@ -56,7 +56,7 @@ class ApplicationSeeder extends Seeder
                 'works5_id' => null,
                 'severity' => '通常',
                 'revision' => 0,
-                'applicated_at' => date('2023-10-01'),
+                'applicated_at' => null,
                 'desired_dlvd_at' => date('2024-01-10')
             ],
         ]);

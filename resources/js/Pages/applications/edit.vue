@@ -1,42 +1,43 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/inertia-vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
 
-defineProps({
+const props = defineProps({
     errors: Object,
-    user: Array
+    application: Object
 })
 
 const form = reactive({
-    client_id: null,
-    subject: null,
-    works_quantity: null,
-    severity: null,
-    revision: null,
-    applicated_at: null,
-    desired_dlvd_at: null,
+    id: props.application.id,
+    client_id: props.application.client_id,
+    subject: props.application.subject,
+    works_quantity: props.application.works_quantity,
+    severity: props.application.severity,
+    revision: props.application.revision,
+    applicated_at: props.application.applicated_at,
+    desired_dlvd_at: props.application.desired_dlvd_at,
 })
 
-// sv-SEロケールはYYYY-MM-DD形式の日付文字列を戻すので使用する
-var today = new Date().toLocaleDateString('sv-SE')
+const updateApplication = id => {
+    var revision_num = Number(document.getElementById('revision').value);
 
-const storeApplication = () => {
     form.client_id = document.getElementById('client_id').value;
-    form.revision = 0;
+    form.revision =  revision_num + 1;
+    form.applicated_at = document.getElementById('applicated_at').value;
 
-    Inertia.post('/applications', form)
+    Inertia.put(route('applications.update', { application: id }), form)
 }
 </script>
 
 <template>
-    <Head title="新規申請" />
+    <Head title="申請編集" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">新規申請</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">申請編集</h2>
         </template>
 
         <div class="py-3">
@@ -47,16 +48,21 @@ const storeApplication = () => {
                             <!-- 依頼者情報 -->
                             <div class="px-5 py-2 bg-white mb-5">
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
-                                    <p class="w-1/3">申請番号：</p>
-                                    <p class="w-1/3">依頼者：{{ user.name }}</p>
-                                    <p class="w-1/3">所属：{{ user.affiliation }}</p>
+                                    <p class="w-1/3">申請番号：{{ application.id }}</p>
+                                    <p class="w-1/3">依頼者：</p>
+                                    <p class="w-1/3">所属：</p>
                                 </div>
                             </div>
 
                             <!-- 申請内容 -->
                             <BreezeValidationErrors :errors="errors" />
-                            <form @submit.prevent="storeApplication(user.id)">
-                                <input type="integer" id="client_id" name="client_id" v-bind:value="user.id" class="hidden">
+                            <form @submit.prevent="updateApplication(form.id)">
+                                <input type="integer" id="client_id" name="client_id" v-bind:value="application.id"
+                                    class="hidden">
+                                <input type="integer" id="revision" name="revision" v-bind:value="application.revision"
+                                    class="hidden">
+                                <input type="integer" id="applicated_at" name="applicated_at"
+                                    v-bind:value="application.applicated_at" class="hidden">
                                 <div class="p-3 flex bg-white">
                                     <div class="p-2 w-2/6">
                                         <div class="relative">
@@ -84,8 +90,8 @@ const storeApplication = () => {
                                     <div class="p-2 w-1/6">
                                         <div class="relative">
                                             <label for="severity" class="leading-7 text-sm text-gray-600">緊急度</label>
-                                            <select id="severity" v-model="form.severity" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                <option disabled value="">選択してください</option>
+                                            <select id="severity" v-model="form.severity"
+                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                 <option value="通常">通常</option>
                                                 <option value="急ぎ">急ぎ</option>
                                                 <option value="超急ぎ">超急ぎ</option>
@@ -95,7 +101,7 @@ const storeApplication = () => {
                                 </div>
                                 <div class="w-7/12 mx-auto my-10">
                                     <button type="submit"
-                                        class="w-full mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl">申請書を作成する</button>
+                                        class="w-full mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl">更新する</button>
                                 </div>
                             </form>
                         </section>
@@ -103,4 +109,5 @@ const storeApplication = () => {
                 </div>
             </div>
         </div>
-</AuthenticatedLayout></template>
+    </AuthenticatedLayout>
+</template>
