@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('application_id');
             $table->unsignedBigInteger('creator_id');
             $table->unsignedBigInteger('work_spec_id');
             $table->date('started_at')->nullable();

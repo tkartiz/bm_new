@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Application;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreapplicationRequest;
 use App\Http\Requests\UpdateapplicationRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\Application;
 
 class ApplicationController extends Controller
 {
@@ -18,8 +19,11 @@ class ApplicationController extends Controller
      */
     public function index()
     {
+        $user = Auth::user()->id;
+        $application = Application::where('user_id', $user)->get();
+
         return Inertia::render('applications/index', [
-            'applications' => Application::all()
+            'applications' => $application
         ]);
     }
 
@@ -44,7 +48,7 @@ class ApplicationController extends Controller
     public function store(StoreapplicationRequest $request)
     {
         Application::create([
-            'client_id' => $request->client_id,
+            'user_id' => $request->user_id,
             'subject' => $request->subject,
             'works_quantity' => $request->works_quantity,
             'severity' => $request->severity,
@@ -69,9 +73,10 @@ class ApplicationController extends Controller
     public function show(application $application)
     {
         // dd($application);
-
+        $user = Auth::user();
         return Inertia::render('applications/show', [
-            'application' => $application
+            'application' => $application,
+            'user' => $user,
         ]);
     }
 
@@ -83,8 +88,10 @@ class ApplicationController extends Controller
      */
     public function edit(application $application)
     {
+        $user = Auth::user();
         return Inertia::render('applications/edit', [
-            'application' => $application
+            'application' => $application,
+            'user' => $user,
         ]);
     }
 
@@ -97,7 +104,7 @@ class ApplicationController extends Controller
      */
     public function update(UpdateapplicationRequest $request, application $application)
     {
-        $application->client_id = $request->client_id;
+        $application->user_id = $request->user_id;
         $application->subject = $request->subject;
         $application->works_quantity = $request->works_quantity;
         $application->severity = $request->severity;

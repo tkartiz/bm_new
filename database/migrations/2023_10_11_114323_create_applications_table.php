@@ -13,14 +13,9 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('subject');
             $table->integer('works_quantity')->nullable();
-            $table->unsignedBigInteger('works1_id')->nullable();
-            $table->unsignedBigInteger('works2_id')->nullable();
-            $table->unsignedBigInteger('works3_id')->nullable();
-            $table->unsignedBigInteger('works4_id')->nullable();
-            $table->unsignedBigInteger('works5_id')->nullable();
             $table->string('severity');
             $table->integer('revision');
             $table->date('applicated_at')->nullable();

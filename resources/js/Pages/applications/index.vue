@@ -65,7 +65,7 @@ defineProps({
                                                     {{ application.id }}
                                                 </Link>
                                             </td>
-                                            <td class="px-2 py-3">{{ application.client_id }}</td>
+                                            <td class="px-2 py-3">{{ application.user_id }}</td>
                                             <td class="px-2 py-3">{{ application.subject }}</td>
                                             <td class="px-2 py-3">{{ application.works_quantity }}</td>
                                             <td class="px-2 py-3">{{ application.severity }}</td>

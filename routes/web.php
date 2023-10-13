@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkspecController;
+use App\Http\Controllers\OutsourcingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,13 @@ use App\Http\Controllers\WorkspecController;
 Route::resource('applications', ApplicationController::class)
 ->middleware(['auth', 'verified']);
 
+Route::resource('works', WorkController::class)
+->middleware(['auth', 'verified']);
+
 Route::resource('workspecs', WorkspecController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('outsoucings', OutsourcingController::class)
 ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {

@@ -4,7 +4,8 @@ import { Inertia } from '@inertiajs/inertia';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 defineProps({
-    application: Object
+    application: Object,
+    user: Object
 })
 
 const deleteApplication = id => {
@@ -31,8 +32,8 @@ const deleteApplication = id => {
                             <div class="px-5 py-2 bg-white mb-5">
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
                                     <p class="w-1/3">申請番号：{{ application.id }}</p>
-                                    <p class="w-1/3">依頼者：</p>
-                                    <p class="w-1/3">所属：</p>
+                                    <p class="w-1/3">依頼者：{{ user.name }}</p>
+                                    <p class="w-1/3">所属：{{ user.affiliation }} </p>
                                 </div>
                             </div>
 
@@ -80,6 +81,10 @@ const deleteApplication = id => {
                                 編集する</Link>
                                 <button @click="deleteApplication(application.id)" class="w-1/4 mx-auto py-2 text-white bg-red-500 border-0 focus:outline-none hover:bg-red-600 rounded-r-xl">
                                 削除する</button>
+                            </div>
+                            <div class="w-7/12 mx-auto my-10">
+                                <Link as="button" :href="route('works.create', { application: application.id })" class="w-full mx-auto py-2 text-white bg-green-500 border-0 focus:outline-none hover:bg-green-600 rounded-xl">
+                                制作物の入力</Link>
                             </div>
                         </section>
                     </div>

@@ -7,12 +7,13 @@ import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
 
 const props = defineProps({
     errors: Object,
-    application: Object
+    application: Object,
+    user: Object
 })
 
 const form = reactive({
     id: props.application.id,
-    client_id: props.application.client_id,
+    user_id: props.application.user_id,
     subject: props.application.subject,
     works_quantity: props.application.works_quantity,
     severity: props.application.severity,
@@ -24,7 +25,7 @@ const form = reactive({
 const updateApplication = id => {
     var revision_num = Number(document.getElementById('revision').value);
 
-    form.client_id = document.getElementById('client_id').value;
+    form.user_id = document.getElementById('user_id').value;
     form.revision =  revision_num + 1;
     form.applicated_at = document.getElementById('applicated_at').value;
 
@@ -49,15 +50,15 @@ const updateApplication = id => {
                             <div class="px-5 py-2 bg-white mb-5">
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
                                     <p class="w-1/3">申請番号：{{ application.id }}</p>
-                                    <p class="w-1/3">依頼者：</p>
-                                    <p class="w-1/3">所属：</p>
+                                    <p class="w-1/3">依頼者：{{ user.name }}</p>
+                                    <p class="w-1/3">所属：{{ user.affiliation }}</p>
                                 </div>
                             </div>
 
                             <!-- 申請内容 -->
                             <BreezeValidationErrors :errors="errors" />
                             <form @submit.prevent="updateApplication(form.id)">
-                                <input type="integer" id="client_id" name="client_id" v-bind:value="application.id"
+                                <input type="integer" id="user_id" name="user_id" v-bind:value="application.id"
                                     class="hidden">
                                 <input type="integer" id="revision" name="revision" v-bind:value="application.revision"
                                     class="hidden">

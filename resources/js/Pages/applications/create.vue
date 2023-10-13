@@ -11,7 +11,7 @@ defineProps({
 })
 
 const form = reactive({
-    client_id: null,
+    user_id: null,
     subject: null,
     works_quantity: null,
     severity: null,
@@ -24,7 +24,7 @@ const form = reactive({
 var today = new Date().toLocaleDateString('sv-SE')
 
 const storeApplication = () => {
-    form.client_id = document.getElementById('client_id').value;
+    form.user_id = document.getElementById('user_id').value;
     form.revision = 0;
 
     Inertia.post('/applications', form)
@@ -56,7 +56,7 @@ const storeApplication = () => {
                             <!-- 申請内容 -->
                             <BreezeValidationErrors :errors="errors" />
                             <form @submit.prevent="storeApplication(user.id)">
-                                <input type="integer" id="client_id" name="client_id" v-bind:value="user.id" class="hidden">
+                                <input type="integer" id="user_id" name="user_id" v-bind:value="user.id" class="hidden">
                                 <div class="p-3 flex bg-white">
                                     <div class="p-2 w-2/6">
                                         <div class="relative">
