@@ -3,7 +3,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import { VueElement } from 'vue';
 
 defineProps({
     errors: Object,
@@ -98,76 +97,28 @@ const storeWork = () => {
                                         <div class="p-2 w-full text-center">
                                             <div class="mb-5">
                                                 <div class="w-full flex">
-                                                    <div class="p-1 w-10">
+                                                    <div class="p-1 w-1/12">
                                                         <p class="w-full mt-8">{{ n }}</p>
                                                     </div>
                                                     <div class="p-1 w-2/12">
                                                         <div class="relative">
                                                             <label :for="'works'+ n +'_size'">サイズ</label>
-                                                            <select :id="'works'+ n +'_size'" :v-model="'works'+ n +'_size'"
+                                                            <input type="text" :id="'works'+ n +'_size'" :name="'works'+ n +'_size'"
                                                                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                                <option value="">選択してください</option>
-                                                                <option value="A1">A1</option>
-                                                                <option value="A2">A2</option>
-                                                                <option value="A3">A3</option>
-                                                                <option value="A4">A4</option>
-                                                                <option value="A5以下">A5以下</option>
-                                                                <option value="名刺">名刺</option>
-                                                                <option value="バナー">バナー</option>
-                                                                <option value="1cA3">1cA3</option>
-                                                                <option value="1CA5以下">1CA5以下</option>
-                                                                <option value="1c名刺">1c名刺</option>
-                                                                <option value="シール">シール</option>
-                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="p-1 w-2/12">
                                                         <div class="relative">
                                                             <label :for="'works'+ n +'_format'">出力形式</label>
-                                                            <select :id="'works'+ n +'_format'" :v-model="'works'+ n +'_format'"
+                                                            <input type="text" :id="'works'+ n +'_format'" :name="'works'+ n +'_format'"
                                                                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                                <option value="">選択してください</option>
-                                                                <option value="紙だけ">紙だけ</option>
-                                                                <option value="ラミ">ラミ</option>
-                                                                <option value="パネル">パネル</option>
-                                                                <option value="ラミパネ">ラミパネ</option>
-                                                                <option value="データ提出">データ提出</option>
-                                                                <option value="入稿">入稿</option>
-                                                            </select>
                                                         </div>
                                                     </div>
-                                                    <div class="p-1 w-3/12">
+                                                    <div class="p-1 w-4/12">
                                                         <div class="relative">
-                                                            <label :for="'works'+ n +'_article'">品目</label>
-                                                            <select :id="'works'+ n +'_article'" :v-model="'works'+ n +'_article'"
+                                                            <label :for="'works'+ n +'_article'">上段：品目／下段：内容</label>
+                                                            <input type="text" :id="'works'+ n +'_article'" :name="'works'+ n +'_article'"
                                                                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                                <option value="">下記リストにあれば、選択してください</option>
-                                                                <option value="出力のみ">出力のみ</option>
-                                                                <option value="文字校【軽】500">文字校【軽】500</option>
-                                                                <option value="文字校【重】1500">文字校【重】1500</option>
-                                                                <option value="注意・誘導【片面】3000">注意・誘導【片面】3000</option>
-                                                                <option value="注意・誘導【両面】5000">注意・誘導【両面】5000</option>
-                                                                <option value="シンプルなPOP【片面】15000">シンプルなPOP【片面】15000</option>
-                                                                <option value="シンプルなPOP【両面】25000">シンプルなPOP【両面】25000</option>
-                                                                <option value="複雑なPOP・チラシ【片面】30000">複雑なPOP・チラシ【片面】30000</option>
-                                                                <option value="複雑なPOP・チラシ【両面】50000">複雑なPOP・チラシ【両面】50000</option>
-                                                                <option value="パンフレット・メニュー【片面】50000">パンフレット・メニュー【片面】50000</option>
-                                                                <option value="パンフレット・メニュー【両面】80000">パンフレット・メニュー【両面】80000</option>
-                                                                <option value="撮影1～5カット15000">撮影1～5カット15000</option>
-                                                                <option value="撮影6～15カット30000">撮影6～15カット30000</option>
-                                                                <option value="ヒアリング10000">ヒアリング10000</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-1 w-5/12">
-                                                        <label :for="'works'+ n +'_content'">内容（品目にない場合に記載）</label>
-                                                        <textarea :id="'works'+ n +'_content'" :name="'works'+ n +'_content'"
-                                                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-24 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea><br>
-                                                        <div class="flex w-full">
-                                                            <button
-                                                                class="w-1/5 bg-red-500 hover:bg-red-700 text-white rounded-l-xl">削除</button>
-                                                            <input type="file" :id="'works'+ n +'_file1'" :name="'works'+ n +'_file1'"
-                                                                class="w-4/5">
                                                         </div>
                                                     </div>
                                                     <div class="p-1 w-1/12">
@@ -175,6 +126,33 @@ const storeWork = () => {
                                                             <label :for="'works'+ n +'_quantity'">数量</label>
                                                             <input type="integer" :id="'works'+ n +'_quantity'" :name="'works'+ n +'_quantity'"
                                                                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        </div>
+                                                    </div>
+                                                    <div class="p-1 w-1/12">
+                                                        <!-- <div class="relative">
+                                                            <label :for="'works'+ n +'_ttl_price_exc'">金額（税抜）</label>
+                                                            <input type="integer" :id="'works'+ n +'_ttl_price_exc'" :name="'works'+ n +'_ttl_price_exc'"
+                                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="p-1 w-1/12">
+                                                        <!-- <div class="relative">
+                                                            <label :for="'works'+ n +'_ttl_price_incl'">金額（税込）</label>
+                                                            <input type="integer" :id="'works'+ n +'_ttl_price_incl'" :name="'works'+ n +'_ttl_price_incl'"
+                                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="w-full flex">
+                                                    <div class="p-1 w-5/12"></div>
+                                                    <div class="p-1 w-4/12">
+                                                        <textarea :id="'works'+ n +'_content'" :name="'works'+ n +'_content'"
+                                                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-24 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea><br>
+                                                        <div class="flex w-full">
+                                                            <button
+                                                                class="w-1/5 bg-red-500 hover:bg-red-700 text-white rounded-l-xl">削除</button>
+                                                            <input type="file" :id="'works'+ n +'_file1'" :name="'works'+ n +'_file1'"
+                                                                class="w-4/5">
                                                         </div>
                                                     </div>
                                                 </div>

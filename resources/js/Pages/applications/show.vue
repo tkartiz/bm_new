@@ -76,15 +76,15 @@ const deleteApplication = id => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="w-7/12 mx-auto my-10">
-                                <Link as="button" :href="route('applications.edit', { application: application.id })" class="w-3/4 mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
+                            <div class="w-full mx-auto my-10">
+                                <Link as="button" :href="route('applications.edit', { application: application.id })" class="w-2/5 mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                                 編集する</Link>
-                                <button @click="deleteApplication(application.id)" class="w-1/4 mx-auto py-2 text-white bg-red-500 border-0 focus:outline-none hover:bg-red-600 rounded-r-xl">
+                                <button @click="deleteApplication(application.id)" class="w-1/5 mx-auto py-2 text-white bg-red-500 border-0 focus:outline-none hover:bg-red-600">
                                 削除する</button>
-                            </div>
-                            <div class="w-7/12 mx-auto my-10">
-                                <Link as="button" :href="route('works.create', { application: application.id })" class="w-full mx-auto py-2 text-white bg-green-500 border-0 focus:outline-none hover:bg-green-600 rounded-xl">
+                                <Link as="button" :href="route('works.create', { application: application.id })" class="w-1/5 mx-auto py-2 text-white bg-amber-500 border-0 focus:outline-none hover:bg-amber-600">
                                 制作物の入力</Link>
+                                <Link as="button" :href="route('applications.index')" class="w-1/5 mx-auto py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
+                                戻る</Link>
                             </div>
                         </section>
                     </div>
