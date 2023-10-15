@@ -34,12 +34,12 @@ const updateApplication = (id) => {
 </script>
 
 <template>
-    <Head title="申請編集" />
+    <Head title="申請書編集" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                申請編集
+                申請書編集
             </h2>
         </template>
 
@@ -54,7 +54,7 @@ const updateApplication = (id) => {
                                     class="p-2 w-full flex flex-wrap text-sm text-gray-600"
                                 >
                                     <p class="w-1/3">
-                                        申請番号：{{ application.id }}
+                                        申請書番号：{{ application.id }}
                                     </p>
                                     <p class="w-1/3">依頼者：{{ user.name }}</p>
                                     <p class="w-1/3">

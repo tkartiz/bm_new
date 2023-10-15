@@ -16,11 +16,11 @@ const deleteApplication = id => {
 </script>
 
 <template>
-    <Head title="申請内容" />
+    <Head title="申請書内容" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">申請内容</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">申請書内容</h2>
         </template>
 
         <div class="py-3">
@@ -31,7 +31,7 @@ const deleteApplication = id => {
                             <!-- 申請内容 -->
                             <div class="px-5 py-2 bg-white mb-5">
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
-                                    <p class="w-1/3">申請番号：{{ application.id }}</p>
+                                    <p class="w-1/3">申請書番号：{{ application.id }}</p>
                                     <p class="w-1/3">依頼者：{{ user.name }}</p>
                                     <p class="w-1/3">所属：{{ user.affiliation }} </p>
                                 </div>
@@ -81,8 +81,8 @@ const deleteApplication = id => {
                                 編集する</Link>
                                 <button @click="deleteApplication(application.id)" class="w-1/5 mx-auto py-2 text-white bg-red-500 border-0 focus:outline-none hover:bg-red-600">
                                 削除する</button>
-                                <Link as="button" :href="route('workspecs.create', { application: application.id })" class="w-1/5 mx-auto py-2 text-white bg-amber-500 border-0 focus:outline-none hover:bg-amber-600">
-                                制作物の入力</Link>
+                                <Link as="button" :href="route('workspecs.index', { application: application.id })" class="w-1/5 mx-auto py-2 text-white bg-amber-500 border-0 focus:outline-none hover:bg-amber-600">
+                                制作物一覧</Link>
                                 <Link as="button" :href="route('applications.index')" class="w-1/5 mx-auto py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                                 戻る</Link>
                             </div>

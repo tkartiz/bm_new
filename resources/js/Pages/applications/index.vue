@@ -9,11 +9,11 @@ defineProps({
 </script>
 
 <template>
-    <Head title="制作依頼・一覧" />
+    <Head title="申請書一覧" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作依頼・一覧</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">申請書一覧</h2>
         </template>
 
         <div class="py-12">
@@ -21,6 +21,10 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-8 mx-auto">
+                            <div class="w-1/6 ms-auto">
+                                <Link as="button" :href="route('applications.create')" class="w-full mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl">
+                                申請書の新規登録</Link>
+                            </div>
                             <FlashMessage />
                             <div class="w-full mx-auto overflow-auto">
                                 <table class="table-auto w-full text-center whitespace-no-wrap">
@@ -28,7 +32,7 @@ defineProps({
                                         <tr>
                                             <th
                                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                                                申請番号</th>
+                                                申請書番号</th>
                                             <th
                                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 申請者名</th>

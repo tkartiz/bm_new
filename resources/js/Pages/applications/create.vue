@@ -31,12 +31,12 @@ const storeApplication = () => {
 </script>
 
 <template>
-    <Head title="新規申請" />
+    <Head title="申請書新規登録" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                新規申請
+                申請書新規登録
             </h2>
         </template>
 
@@ -50,7 +50,7 @@ const storeApplication = () => {
                                 <div
                                     class="p-2 w-full flex flex-wrap text-sm text-gray-600"
                                 >
-                                    <p class="w-1/3">申請番号：</p>
+                                    <p class="w-1/3">申請書番号：</p>
                                     <p class="w-1/3">依頼者：{{ user.name }}</p>
                                     <p class="w-1/3">
                                         所属：{{ user.affiliation }}

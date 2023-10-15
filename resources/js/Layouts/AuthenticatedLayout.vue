@@ -32,11 +32,7 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                                 <NavLink :href="route('applications.index')"
                                     :active="route().current('applications.index')">
-                                    制作・一覧
-                                </NavLink>
-                                <NavLink :href="route('applications.create')"
-                                    :active="route().current('applications.create')">
-                                    制作・新規申請
+                                    申請書一覧
                                 </NavLink>
                             </div>
                         </div>

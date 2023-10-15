@@ -7,8 +7,8 @@ import { VueElement } from 'vue';
 
 defineProps({
     errors: Object,
-    application: Object,
     user: Object,
+    application: Object,
 })
 
 const form = reactive({
@@ -21,12 +21,13 @@ const storeWorkspec = () => {
 </script>
 
 <template>
-    <Head title="制作物仕様入力" />
+    <Head title="制作情報入力" />
+
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物仕様入力</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作情報入力</h2>
         </template>
-        制作物仕様入力
+
         <div class="py-3">
             <div class="container mx-auto">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -35,7 +36,7 @@ const storeWorkspec = () => {
                             <!-- 依頼者情報 -->
                             <div class="px-5 py-2 bg-white mb-5">
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
-                                    <p class="w-1/3">申請番号：{{ application.id }} </p>
+                                    <p class="w-1/3">申請番号：{{ application.id }}</p>
                                     <p class="w-1/3">依頼者：{{ user.name }}</p>
                                     <p class="w-1/3">所属：{{ user.affiliation }}</p>
                                 </div>

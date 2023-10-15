@@ -4,8 +4,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import FlashMessage from '@/Components/FlashMessage.vue';
 
 defineProps({
-    workspecs: Array,
-    application: Object,
+    workspecs: Array
 })
 </script>
 
@@ -16,6 +15,7 @@ defineProps({
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物仕様・一覧</h2>
         </template>
+
         <div class="py-12">
             <div class="w-full mx-auto px-3">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -26,9 +26,6 @@ defineProps({
                                 <table class="table-auto w-full text-center whitespace-no-wrap">
                                     <thead>
                                         <tr>
-                                            <th
-                                                class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                                                申請書番号</th>
                                             <th
                                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
                                                 制作物番号</th>
@@ -57,7 +54,6 @@ defineProps({
                                     </thead>
                                     <tbody>
                                         <tr v-for="workspec in workspecs" :key="workspec.id">
-                                            <td class="px-2 py-3">{{ workspec.application_id }}</td>
                                             <td class="px-2 py-3">
                                                 <Link class="text-blue-400" :href="route('workspecs.show', { workspec: workspec.id })">
                                                     {{ workspec.id }}
@@ -74,14 +70,6 @@ defineProps({
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="w-7/12 mx-auto my-10">
-                            <Link as="button" :href="route('workspecs.create', {application: application.id})" class="w-3/5 mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
-                                制作物仕様の入力
-                            </Link>
-                            <Link as="button" :href="route('applications.index', {application: application.id})" class="w-2/5 mx-auto py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
-                                戻る
-                            </Link>
                         </div>
                     </section>
                 </div>

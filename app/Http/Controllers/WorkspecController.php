@@ -18,8 +18,13 @@ class WorkspecController extends Controller
      */
     public function index()
     {
+        $id = (Integer)$_GET['application'];
+        $Workspec2Application = Application::find($id);
+        $workspecs = Workspec::where('application_id', '=', $id)->get();
+
         return Inertia::render('workspecs/index', [
-            'workspecs' => Workspec::all(),
+            'workspecs' => $workspecs,
+            'application' => $Workspec2Application,
         ]);
     }
 
@@ -29,12 +34,11 @@ class WorkspecController extends Controller
     public function create()
     {
         $id = (Integer)$_GET['application'];
-        $application = Application::where('id', $id)->get();
-        $application = $application[0];
+        $Workspec2Application = Application::find($id);
 
         return Inertia::render('workspecs/create', [
             'user' => Auth::user(),
-            'application' => $application,
+            'application' => $Workspec2Application,
         ]);
     }
 
@@ -46,6 +50,7 @@ class WorkspecController extends Controller
         $id = (Integer)$_GET['application'];
         $application = Application::where('id', $id)->get();
         $application = $application[0];
+        dd($application);
 
         Workspec::create([
             'size' => $request->works1_size,
