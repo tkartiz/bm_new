@@ -26,7 +26,6 @@ var today = new Date().toLocaleDateString("sv-SE");
 const storeApplication = () => {
     form.user_id = document.getElementById("user_id").value;
     form.revision = 0;
-
     Inertia.post("/applications", form);
 };
 </script>

@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('workspecs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('application_id');
             $table->string('size');
             $table->string('format');
-            $table->string('article');
-            $table->string('severity');
+            $table->string('article')->nullable();
+            $table->string('content')->nullable();
+            $table->string('file')->nullable();
             $table->integer('quantity');
             $table->string('unit');
-            $table->boolean('outsourcing');
-            $table->unsignedBigInteger('outsourcing_id')->nullable();
-            $table->integer('subttl_price_incl')->nullable();
-            $table->integer('subttl_price_exc')->nullable();
             $table->timestamps();
         });
     }

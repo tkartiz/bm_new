@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('application_id');
-            $table->unsignedBigInteger('creator_id');
             $table->unsignedBigInteger('work_spec_id');
+            $table->unsignedBigInteger('creator_id');
+            $table->boolean('outsourcing');
+            $table->unsignedBigInteger('os_appd_id')->nullable();
             $table->date('started_at')->nullable();
             $table->date('comleted_at')->nullable();
+            $table->integer('price_incl')->nullable();
+            $table->integer('price_exc')->nullable();
             $table->string('message')->nullable();
             $table->timestamps();
         });

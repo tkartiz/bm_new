@@ -14,16 +14,18 @@ class Application extends Model
     protected $fillable = [
         'user_id',
         'subject',
-        'works_quantity',
-        'severity',
-        'revision',
         'applicated_at',
         'desired_dlvd_at',
+        'revision',
+        'works_quantity',
+        'severity',
+        'ttl_price_incl',
+        'ttl_price_exc',
     ];
 
-    public function work(): HasMany
+    public function Application2Workspec(): HasMany
     {
-        return $this->hasMany(Work::class, 'application_id', 'id');
+        return $this->hasMany(Workspec::class, 'application_id', 'id');
     }
 
 }

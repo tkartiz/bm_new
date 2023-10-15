@@ -20,29 +20,35 @@ class ApplicationSeeder extends Seeder
             [
                 'user_id' => 1,
                 'subject' => '秋祭りイベント',
+                'applicated_at' => null,
+                'desired_dlvd_at' => date('2023-12-10'),
+                'revision' => 0,
                 'works_quantity' => 3,
                 'severity' => '通常',
-                'revision' => 0,
-                'applicated_at' => null,
-                'desired_dlvd_at' => date('2023-12-10')
+                'ttl_price_incl' => null,
+                'ttl_price_exc' => null,
             ],
             [
                 'user_id' => 2,
                 'subject' => 'ハロウィーンイベント',
-                'works_quantity' => 5,
-                'severity' => '通常',
-                'revision' => 0,
                 'applicated_at' => null,
-                'desired_dlvd_at' => date('2023-12-25')
+                'desired_dlvd_at' => date('2023-12-25'),
+                'revision' => 0,
+                'works_quantity' => 5,
+                'severity' => '急ぎ',
+                'ttl_price_incl' => null,
+                'ttl_price_exc' => null,
             ],
             [
                 'user_id' => 1,
                 'subject' => 'オクトーバーフェストイベント',
-                'works_quantity' => 1,
-                'severity' => '通常',
-                'revision' => 0,
                 'applicated_at' => null,
-                'desired_dlvd_at' => date('2024-01-10')
+                'desired_dlvd_at' => date('2024-01-10'),
+                'revision' => 0,
+                'works_quantity' => 1,
+                'severity' => '超急ぎ',
+                'ttl_price_incl' => null,
+                'ttl_price_exc' => null,
             ],
         ]);
     }

@@ -11,8 +11,19 @@ class Outsourcing extends Model
 {
     use HasFactory;
 
-    // public function workspec(): BelongsTo
-    // {
-    //     return $this->belongsTo(Workspec::class);
-    // }
+    protected $fillable = [
+        'os_appd_id',
+        'comp_name',
+        'comp_price_incl',
+        'comp_price_exc',
+        'remarks',
+        'comp_file1',
+        'comp_file2',
+        'comp_file3',
+    ];
+
+    public function Outsourcing2Os_appd(): BelongsTo
+    {
+        return $this->belongsTo(Os_appd::class);
+    }
 }

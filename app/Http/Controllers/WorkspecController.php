@@ -18,7 +18,9 @@ class WorkspecController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('workspecs/index', [
+            'workspecs' => Workspec::all(),
+        ]);
     }
 
     /**
@@ -26,10 +28,14 @@ class WorkspecController extends Controller
      */
     public function create()
     {
-        // return Inertia::render('workspecs/create', [
-        //     'user' => Auth::user(),
-        //     'applications' => Application::all()
-        // ]);
+        $id = (Integer)$_GET['application'];
+        $application = Application::where('id', $id)->get();
+        $application = $application[0];
+
+        return Inertia::render('workspecs/create', [
+            'user' => Auth::user(),
+            'application' => $application,
+        ]);
     }
 
     /**
@@ -37,7 +43,27 @@ class WorkspecController extends Controller
      */
     public function store(StoreWorkspecRequest $request)
     {
-        //
+        $id = (Integer)$_GET['application'];
+        $application = Application::where('id', $id)->get();
+        $application = $application[0];
+
+        Workspec::create([
+            'size' => $request->works1_size,
+            'format' => $request->works1_format,
+            'article' => $request->works1_article,
+            'content' => $request->works1_content,
+            'file' => $request->works1_file,
+            'quantity' => $request->works1_quantity,
+
+            // 'size' => $request->'works'+ n +'_size',
+            // 'format' => $request->'works'+ n +'_format',
+            // 'article' => $request->'works'+ n +'_article',
+            // 'content' => $request->'works'+ n +'_content',
+            // 'file' => $request->'works'+ n +'_file',
+            // 'quantity' => $request->'works'+ n +'_quantity',
+        ]);
+
+        return to_route('workspecs.index');
     }
 
     /**

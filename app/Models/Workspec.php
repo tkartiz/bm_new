@@ -12,14 +12,25 @@ class Workspec extends Model
 {
     use HasFactory;
 
-    // public function work(): BelongsTo
-    // {
-    //     return $this->belongsTo(Work::class);
-    // }
+    protected $fillable = [
+        'application_id',
+        'size',
+        'format',
+        'article',
+        'content',
+        'file',
+        'quantity',
+        'unit',
+    ];    
 
-    // public function outsourcing(): HasOne
-    // {
-    //     return $this->hasOne(Outsourcing::class);
-    // }
+    public function Workspec2Application(): BelongsTo
+    {
+        return $this->belongsTo(Application::class);
+    }
+
+    public function Workspec2Work(): HasOne
+    {
+        return $this->hasOne(Work::class, 'work_spec_id', 'id');
+    }
 
 }

@@ -81,7 +81,7 @@ const deleteApplication = id => {
                                 編集する</Link>
                                 <button @click="deleteApplication(application.id)" class="w-1/5 mx-auto py-2 text-white bg-red-500 border-0 focus:outline-none hover:bg-red-600">
                                 削除する</button>
-                                <Link as="button" :href="route('works.create', { application: application.id })" class="w-1/5 mx-auto py-2 text-white bg-amber-500 border-0 focus:outline-none hover:bg-amber-600">
+                                <Link as="button" :href="route('workspecs.create', { application: application.id })" class="w-1/5 mx-auto py-2 text-white bg-amber-500 border-0 focus:outline-none hover:bg-amber-600">
                                 制作物の入力</Link>
                                 <Link as="button" :href="route('applications.index')" class="w-1/5 mx-auto py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                                 戻る</Link>

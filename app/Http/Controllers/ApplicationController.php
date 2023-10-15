@@ -72,7 +72,6 @@ class ApplicationController extends Controller
      */
     public function show(application $application)
     {
-        // dd($application);
         $user = Auth::user();
         return Inertia::render('applications/show', [
             'application' => $application,

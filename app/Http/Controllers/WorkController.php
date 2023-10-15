@@ -17,12 +17,9 @@ class WorkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(application $application)
+    public function index()
     {
-        
-        return Inertia::render('works/index', [
-            'works' => Work::all(),
-        ]);
+        //
     }
 
     /**
@@ -30,14 +27,7 @@ class WorkController extends Controller
      */
     public function create()
     {
-        $id = (Integer)$_GET['application'];
-        $application = Application::where('id', $id)->get();
-        $application = $application[0];
-
-        return Inertia::render('works/create', [
-            'user' => Auth::user(),
-            'application' => $application,
-        ]);
+        //
     }
 
     /**
