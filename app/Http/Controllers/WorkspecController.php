@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workspec;
+use App\Models\Application;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWorkspecRequest;
 use App\Http\Requests\UpdateWorkspecRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-
-use App\Models\Application;
 
 class WorkspecController extends Controller
 {
@@ -23,6 +23,7 @@ class WorkspecController extends Controller
         $workspecs = Workspec::where('application_id', '=', $id)->get();
 
         return Inertia::render('workspecs/index', [
+            'user' => Auth::user(),
             'workspecs' => $workspecs,
             'application' => $Workspec2Application,
         ]);
@@ -34,7 +35,7 @@ class WorkspecController extends Controller
     public function create()
     {
         $id = (Integer)$_GET['application'];
-        $Workspec2Application = Application::find($id);
+        $Workspec2Application = Application::find($id);       
 
         return Inertia::render('workspecs/create', [
             'user' => Auth::user(),
@@ -47,28 +48,30 @@ class WorkspecController extends Controller
      */
     public function store(StoreWorkspecRequest $request)
     {
-        $id = (Integer)$_GET['application'];
-        $application = Application::where('id', $id)->get();
-        $application = $application[0];
-        dd($application);
-
         Workspec::create([
-            'size' => $request->works1_size,
-            'format' => $request->works1_format,
-            'article' => $request->works1_article,
-            'content' => $request->works1_content,
-            'file' => $request->works1_file,
-            'quantity' => $request->works1_quantity,
-
-            // 'size' => $request->'works'+ n +'_size',
-            // 'format' => $request->'works'+ n +'_format',
-            // 'article' => $request->'works'+ n +'_article',
-            // 'content' => $request->'works'+ n +'_content',
-            // 'file' => $request->'works'+ n +'_file',
-            // 'quantity' => $request->'works'+ n +'_quantity',
+            'application_id' => $request->application_id,
+            'size' => $request->size,
+            'format' => $request->format,
+            'article' => $request->article,
+            'content' => $request->content,
+            'file' => $request->file,
+            'quantity' => $request->quantity,
+            'unit' => $request->unit,
         ]);
 
-        return to_route('workspecs.index');
+        // 親の申請書の制作物点数を更新する
+        $id = $request->application_id;
+        $workspecs = Workspec::where('application_id', '=', $id)->get();
+        $works_quantity = count($workspecs); 
+        $Workspec2Application = Application::find($id);
+        $Workspec2Application->works_quantity = $works_quantity;
+        $Workspec2Application->save();
+
+        return to_route('workspecs.index', ['application' => $request->application_id])
+            -> with([
+                'message' => '登録しました。',
+                'status' => 'success',
+            ]);
     }
 
     /**
@@ -76,7 +79,15 @@ class WorkspecController extends Controller
      */
     public function show(Workspec $workspec)
     {
-        //
+        $user = Auth::user();
+        $id = $workspec->application_id;
+        $Workspec2Application = Application::find($id);
+
+        return Inertia::render('workspecs/show', [
+            'user' => $user,
+            'workspec' => $workspec,
+            'application' => $Workspec2Application,
+        ]);
     }
 
     /**
@@ -84,7 +95,15 @@ class WorkspecController extends Controller
      */
     public function edit(Workspec $workspec)
     {
-        //
+        $user = Auth::user();
+        $id = $workspec->application_id;
+        $Workspec2Application = Application::find($id);
+
+        return Inertia::render('workspecs/edit', [
+            'user' => $user,
+            'workspec' => $workspec,
+            'application' => $Workspec2Application,
+        ]);
     }
 
     /**
@@ -92,7 +111,21 @@ class WorkspecController extends Controller
      */
     public function update(UpdateWorkspecRequest $request, Workspec $workspec)
     {
-        //
+        $workspec->application_id = $request->application_id;
+        $workspec->size = $request->size;
+        $workspec->format = $request->format;
+        $workspec->article = $request->article;
+        $workspec->content = $request->content;
+        $workspec->file = $request->file;
+        $workspec->quantity = $request->quantity;
+        $workspec->unit = $request->unit;
+        $workspec->save();
+
+        return to_route('workspecs.index', ['application' => $request->application_id])
+            -> with([
+                'message' => '更新しました。',
+                'status' => 'success',
+            ]);
     }
 
     /**
@@ -100,6 +133,21 @@ class WorkspecController extends Controller
      */
     public function destroy(Workspec $workspec)
     {
-        //
+        $id = $workspec->application_id;
+
+        $workspec->delete();
+
+        // 親の申請書の制作物点数を更新する
+        $workspecs = Workspec::where('application_id', '=', $id)->get();
+        $works_quantity = count($workspecs); 
+        $Workspec2Application = Application::find($id);
+        $Workspec2Application->works_quantity = $works_quantity;
+        $Workspec2Application->save();
+
+        return to_route('workspecs.index', ['application' => $id])
+            ->with([
+                'message' => '削除しました。',
+                'status' => 'danger'
+            ]);
     }
 }

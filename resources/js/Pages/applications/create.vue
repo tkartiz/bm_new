@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link} from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import { reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
@@ -47,9 +47,7 @@ const storeApplication = () => {
                         <section class="text-gray-600 body-font relative">
                             <!-- 依頼者情報 -->
                             <div class="px-5 py-2 bg-white mb-5">
-                                <div
-                                    class="p-2 w-full flex flex-wrap text-sm text-gray-600"
-                                >
+                                <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
                                     <p class="w-1/3">申請書番号：</p>
                                     <p class="w-1/3">依頼者：{{ user.name }}</p>
                                     <p class="w-1/3">
@@ -61,72 +59,36 @@ const storeApplication = () => {
                             <!-- 申請内容 -->
                             <BreezeValidationErrors :errors="errors" />
                             <form @submit.prevent="storeApplication(user.id)">
-                                <input
-                                    type="integer"
-                                    id="user_id"
-                                    name="user_id"
-                                    v-bind:value="user.id"
-                                    class="hidden"
-                                />
+                                <input type="integer" id="user_id" name="user_id" v-bind:value="user.id" class="hidden" />
                                 <div class="p-3 flex bg-white">
                                     <div class="p-2 w-2/6">
                                         <div class="relative">
-                                            <label
-                                                for="subject"
-                                                class="leading-7 text-sm text-gray-600"
-                                                >品名</label
-                                            >
-                                            <input
-                                                type="text"
-                                                id="subject"
-                                                v-model="form.subject"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-1/6"></div>
-                                    <div class="p-2 w-1/6">
-                                        <div class="relative">
-                                            <label
-                                                for="desired_dlvd_at"
-                                                class="leading-7 text-sm text-gray-600"
-                                                >希望納期</label
-                                            >
-                                            <input
-                                                type="date"
-                                                id="desired_dlvd_at"
-                                                v-model="form.desired_dlvd_at"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            />
+                                            <label for="subject" class="leading-7 text-sm text-gray-600">品名</label>
+                                            <input type="text" id="subject" v-model="form.subject"
+                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                         </div>
                                     </div>
                                     <div class="p-2 w-1/6">
-                                        <div class="relative">
-                                            <label
-                                                for="works_quantity"
-                                                class="leading-7 text-sm text-gray-600"
-                                                >依頼点数</label
-                                            >
-                                            <input
-                                                type="integer"
-                                                id="works_quantity"
-                                                v-model="form.works_quantity"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            />
-                                        </div>
+                                        <label for="applied_at" class="leading-7 text-sm text-gray-600">申請日</label>
+                                        <div id="applied_at" class="w-full"></div>
                                     </div>
                                     <div class="p-2 w-1/6">
                                         <div class="relative">
-                                            <label
-                                                for="severity"
-                                                class="leading-7 text-sm text-gray-600"
-                                                >緊急度</label
-                                            >
-                                            <select
-                                                id="severity"
-                                                v-model="form.severity"
-                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            >
+                                            <label for="desired_dlvd_at"
+                                                class="leading-7 text-sm text-gray-600">希望納期</label>
+                                            <input type="date" id="desired_dlvd_at" v-model="form.desired_dlvd_at"
+                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        </div>
+                                    </div>
+                                    <div class="p-2 w-1/6">
+                                        <label for="works_quantity" class="leading-7 text-sm text-gray-600">依頼点数</label>
+                                        <div id="works_quantity" class="w-full"></div>
+                                    </div>
+                                    <div class="p-2 w-1/6">
+                                        <div class="relative">
+                                            <label for="severity" class="leading-7 text-sm text-gray-600">緊急度</label>
+                                            <select id="severity" v-model="form.severity"
+                                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                 <option disabled value="">選択してください</option>
                                                 <option value="通常">通常</option>
                                                 <option value="急ぎ">急ぎ</option>
@@ -135,20 +97,14 @@ const storeApplication = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-7/12 mx-auto my-10">
-                                    <button
-                                        type="submit"
-                                        class="w-3/5 mx-auto py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl"
-                                    >
+                                <div class="w-full mx-auto my-10">
+                                    <button type="submit"
+                                        class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                                         申請書を作成する
                                     </button>
-                                    <Link
-                                        as="button"
-                                        :href="route('applications.index')"
-                                        class="w-2/5 mx-auto py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl"
-                                    >
-                                        戻る</Link
-                                    >
+                                    <Link as="button" :href="route('applications.index')"
+                                        class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
+                                    戻る</Link>
                                 </div>
                             </form>
                         </section>

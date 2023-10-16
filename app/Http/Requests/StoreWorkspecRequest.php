@@ -11,7 +11,7 @@ class StoreWorkspecRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreWorkspecRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'size' => ['required'],
+            'format' => ['required'],
+            'content' => ['max:255'],
+            'quantity' => ['required','numeric'],
+            'unit' => ['required','max:10'],
         ];
     }
 }

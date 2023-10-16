@@ -16,7 +16,6 @@ class Application extends Model
         'subject',
         'applicated_at',
         'desired_dlvd_at',
-        'revision',
         'works_quantity',
         'severity',
         'ttl_price_incl',

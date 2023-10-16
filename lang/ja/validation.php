@@ -159,7 +159,11 @@ return [
         'subject' => '品名',
         'severity' => '緊急度',
         'works_quantity' => '依頼点数',
-        'desired_dlvd_at' => '希望納期'
+        'desired_dlvd_at' => '希望納期',
+        'size' => 'サイズ',
+        'format' => '出力形式',
+        'quantity' => '数量',
+        'unit' => '単位',
     ],
 
 ];

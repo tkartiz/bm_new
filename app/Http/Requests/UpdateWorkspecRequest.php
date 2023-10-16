@@ -22,7 +22,11 @@ class UpdateWorkspecRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'size' => ['required', 'string'],
+            'format' => ['required', 'string'],
+            'content' => ['string'],
+            'quantity' => ['required','numeric'],
+            'unit' => ['required','max:10'],
         ];
     }
 }

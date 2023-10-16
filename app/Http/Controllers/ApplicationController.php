@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\Workspec;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreapplicationRequest;
 use App\Http\Requests\UpdateapplicationRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Application;
-
 class ApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -29,8 +28,6 @@ class ApplicationController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -41,9 +38,6 @@ class ApplicationController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreapplicationRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreapplicationRequest $request)
     {
@@ -52,7 +46,6 @@ class ApplicationController extends Controller
             'subject' => $request->subject,
             'works_quantity' => $request->works_quantity,
             'severity' => $request->severity,
-            'revision' => $request->revision,
             'applicated_at' => $request->applicated_at,
             'desired_dlvd_at' => $request->desired_dlvd_at,
         ]);
@@ -66,9 +59,6 @@ class ApplicationController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\application  $application
-     * @return \Illuminate\Http\Response
      */
     public function show(application $application)
     {
@@ -81,9 +71,6 @@ class ApplicationController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\application  $application
-     * @return \Illuminate\Http\Response
      */
     public function edit(application $application)
     {
@@ -96,10 +83,6 @@ class ApplicationController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateapplicationRequest  $request
-     * @param  \App\Models\application  $application
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateapplicationRequest $request, application $application)
     {
@@ -107,7 +90,6 @@ class ApplicationController extends Controller
         $application->subject = $request->subject;
         $application->works_quantity = $request->works_quantity;
         $application->severity = $request->severity;
-        $application->revision = $request->revision;
         $application->applicated_at = $request->applicated_at;
         $application->desired_dlvd_at = $request->desired_dlvd_at;
         $application->save();

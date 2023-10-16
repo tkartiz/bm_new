@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('subject');
             $table->integer('works_quantity')->nullable();
             $table->string('severity');
-            $table->integer('revision');
             $table->date('applicated_at')->nullable();
             $table->date('desired_dlvd_at');
             $table->integer('ttl_price_exc')->nullable();
