@@ -10,6 +10,7 @@ use App\Http\Requests\StoreWorkspecRequest;
 use App\Http\Requests\UpdateWorkspecRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class WorkspecController extends Controller
 {
@@ -48,6 +49,15 @@ class WorkspecController extends Controller
      */
     public function store(StoreWorkspecRequest $request)
     {
+        // 選択されたファイル情報よりファイルをアップロードしてパスを保存する
+        if($request->file){
+            $directory = 'public/'.$request->application_id;
+            Storage::makeDirectory($directory);
+            $file_name = $request->file('file')->getClientOriginalName();
+            $request->file('file')->storeAs($directory, $file_name);
+            $request->file = $file_name;
+        }
+
         Workspec::create([
             'application_id' => $request->application_id,
             'size' => $request->size,
@@ -134,6 +144,16 @@ class WorkspecController extends Controller
     public function destroy(Workspec $workspec)
     {
         $id = $workspec->application_id;
+
+        if($workspec->file){
+            $directory = 'public/'.$workspec->application_id;
+            $files = Storage::files($directory);
+            if(count($files) < 2 ){
+                Storage::deleteDirectory($directory);
+            } else {
+                Storage::disk('public')->delete($workspec->application_id.'/'.$workspec->file);
+            }
+        }
 
         $workspec->delete();
 

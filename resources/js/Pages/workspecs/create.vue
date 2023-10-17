@@ -23,10 +23,8 @@ const form = reactive({
 
 const storeWorkspec = () => {
     form.application_id = document.getElementById("application_id").value;
-    form.file = document.getElementById("work_file").value;
     Inertia.post('/workspecs', form)
 }
-
 
 </script>
 
@@ -135,9 +133,8 @@ const storeWorkspec = () => {
                                             <textarea id="work_content" v-model="form.content"
                                                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-24 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea><br>
                                             <div class="flex w-full">
-                                                <button
-                                                    class="w-1/5 bg-red-500 hover:bg-red-700 text-white rounded-l-xl">削除</button>
-                                                <input type="file" id="work_file" name="work_file" class="w-4/5">
+                                                <button class="w-1/5 bg-red-500 hover:bg-red-700 text-white rounded-l-xl">削除</button>
+                                                <input type="file" @input="form.file = $event.target.files[0]" class="w-4/5">
                                             </div>
                                         </div>
                                         <div class="p-1 w-1/12">

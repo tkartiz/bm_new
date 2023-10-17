@@ -89,7 +89,10 @@ defineProps({
                                             <td class="px-2 py-3">{{ workspec.format }}</td>
                                             <td class="px-2 py-3">{{ workspec.article }}</td>
                                             <td class="px-2 py-3">{{ workspec.content }}</td>
-                                            <td class="px-2 py-3">{{ workspec.file }}</td>
+                                            <td class="px-2 py-3">
+                                                <span v-if="workspec.file"><img  class="mx-auto" :src="'/storage/'+ workspec.application_id + '/' + workspec.file" style="width: 100px" /></span>
+                                                <p>{{ workspec.file }}</p>
+                                            </td>
                                             <td class="px-2 py-3">{{ workspec.quantity }}</td>
                                             <td class="px-2 py-3">{{ workspec.unit }}</td>
                                         </tr>

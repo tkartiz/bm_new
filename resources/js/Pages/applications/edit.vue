@@ -59,7 +59,7 @@ const updateApplication = (id) => {
                             <!-- 申請内容 -->
                             <BreezeValidationErrors :errors="errors" />
                             <form @submit.prevent="updateApplication(form.id)">
-                                <input type="integer" id="user_id" name="user_id" v-bind:value="application.id"
+                                <input type="integer" id="user_id" name="user_id" v-bind:value="user.id"
                                     class="hidden" />
                                 <input type="integer" id="applicated_at" name="applicated_at"
                                     v-bind:value="application.applicated_at" class="hidden" />

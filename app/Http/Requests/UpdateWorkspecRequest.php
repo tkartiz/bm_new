@@ -11,7 +11,7 @@ class UpdateWorkspecRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,9 @@ class UpdateWorkspecRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'size' => ['required', 'string'],
-            'format' => ['required', 'string'],
-            'content' => ['string'],
+            'size' => ['required'],
+            'format' => ['required'],
+            'content' => ['max:255'],
             'quantity' => ['required','numeric'],
             'unit' => ['required','max:10'],
         ];

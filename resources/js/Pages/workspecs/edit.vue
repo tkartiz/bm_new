@@ -14,6 +14,7 @@ const props = defineProps({
 
 const form = reactive({
     id: props.workspec.id,
+    application_id: props.workspec.application_id,
     size: props.workspec.size,
     format: props.workspec.format,
     article: props.workspec.article,
@@ -25,11 +26,8 @@ const form = reactive({
 
 const updateWorkspec = (id) => {
     form.application_id = document.getElementById("application_id").value;
-    form.file = document.getElementById("work_file").value;
-
-    Inertia.put(route('/workspecs', {workspec: id}), form);
+    Inertia.put(route('workspecs.update', { workspec: id }), form);
 }
-
 
 </script>
 
@@ -73,14 +71,12 @@ const updateWorkspec = (id) => {
                                 <!-- 申請内容・内訳 -->
                                 <div class="p-2 w-full -mb-4">内訳：</div>
                                 <BreezeValidationErrors :errors="errors" />
-                                <form @submit.prevent="updateWorkspec(application.id)">
+                                <form @submit.prevent="updateWorkspec(form.id)">
                                     <input type="integer" id="application_id" name="application_id" v-bind:value="application.id" class="hidden"/>
+                                    {{ form }}
                                     <div class="p-2 w-full text-center">
                                         <div class="mb-5">
                                             <div class="w-full flex">
-                                                <div class="p-1 w-10">
-                                                    <p class="w-full mt-8">{{ n }}</p>
-                                                </div>
                                                 <div class="p-1 w-2/12">
                                                     <div class="relative">
                                                         <label for="work_size">サイズ</label>
@@ -144,10 +140,9 @@ const updateWorkspec = (id) => {
                                                     <textarea id="work_content" v-model="form.content"
                                                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-24 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea><br>
                                                     <div class="flex w-full">
-                                                        <button
-                                                            class="w-1/5 bg-red-500 hover:bg-red-700 text-white rounded-l-xl">削除</button>
-                                                        <input type="file" id="work_file" name="work_file"
-                                                            class="w-4/5">
+                                                        <!-- <button class="w-1/5 bg-red-500 hover:bg-red-700 text-white rounded-l-xl">削除</button> -->
+                                                        <!-- <input type="file" @input="form.file = $event.target.files[0]" class="w-4/5"> -->
+                                                        <p>{{ form.file }}（添付ファイル変更はできません。）</p>
                                                     </div>
                                                 </div>
                                                 <div class="p-1 w-1/12">
