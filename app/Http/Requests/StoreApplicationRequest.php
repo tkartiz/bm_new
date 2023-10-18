@@ -24,6 +24,7 @@ class StoreApplicationRequest extends FormRequest
         return [
             'subject' => ['required', 'max:50'],
             'severity' => ['required', 'string'],
+            'applicated_at' => ['nullable', 'date'],
             'desired_dlvd_at' => ['required', 'date'],
         ];
     }

@@ -15,6 +15,7 @@ const form = reactive({
     id: props.application.id,
     user_id: props.application.user_id,
     subject: props.application.subject,
+    works_quantity: props.application.works_quantity,
     severity: props.application.severity,
     applicated_at: props.application.applicated_at,
     desired_dlvd_at: props.application.desired_dlvd_at,
@@ -22,15 +23,14 @@ const form = reactive({
 
 const updateApplication = (id) => {
     form.user_id = document.getElementById("user_id").value;
-    form.applicated_at = document.getElementById("applicated_at").value;
-
     Inertia.put(route("applications.update", { application: id }), form);
 };
+
 </script>
 
 <template>
     <Head title="申請書編集" />
-
+    
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -72,8 +72,10 @@ const updateApplication = (id) => {
                                         </div>
                                     </div>
                                     <div class="p-2 w-1/6">
-                                        <label for="applied_at" class="leading-7 text-sm text-gray-600">申請日</label>
-                                        <div id="applied_at" class="w-full">{{ application_applied_at }}</div>
+                                        <label for="applicated_at" class="leading-7 text-sm text-gray-600">申請</label><br>
+                                        <span v-if="form.applicated_at === null"><input type="checkbox" id="applicated_at" v-model="form.check"
+                                                class="w-5 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />　申請します</span>
+                                        <p>{{ form.applicated_at }}</p>
                                     </div>
                                     <div class="p-2 w-1/6">
                                         <div class="relative">
@@ -106,7 +108,11 @@ const updateApplication = (id) => {
                                     </div>
                                 </div>
                                 <div class="w-full mx-auto my-10">
-                                    <button type="submit"
+                                    <button v-if="form.check === true" type="submit"
+                                        class="w-1/2 py-2 text-white bg-orange-500 border-0 focus:outline-none hover:bg-orange-600 rounded-l-xl">
+                                        申請する
+                                    </button>
+                                    <button v-else type="submit"
                                         class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                                         更新する
                                     </button>

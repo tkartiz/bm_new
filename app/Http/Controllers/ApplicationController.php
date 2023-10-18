@@ -46,7 +46,7 @@ class ApplicationController extends Controller
             'subject' => $request->subject,
             'works_quantity' => $request->works_quantity,
             'severity' => $request->severity,
-            'applicated_at' => $request->applicated_at,
+            'applicated_at' => null,
             'desired_dlvd_at' => $request->desired_dlvd_at,
         ]);
 
@@ -90,7 +90,11 @@ class ApplicationController extends Controller
         $application->subject = $request->subject;
         $application->works_quantity = $request->works_quantity;
         $application->severity = $request->severity;
-        $application->applicated_at = $request->applicated_at;
+        if($request->check === true){
+            $application->applicated_at = date("Y-m-d");
+        } else {
+            $application->applicated_at = null;
+        }
         $application->desired_dlvd_at = $request->desired_dlvd_at;
         $application->save();
 

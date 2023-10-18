@@ -13,6 +13,15 @@ const deleteApplication = id => {
         onBefore: () => confirm('本当に削除しますか？')
     });
 }
+
+const appliedApplication = id => {
+    // sv-SEロケールはYYYY-MM-DD形式の日付文字列を戻すので使用する
+    var today = new Date().toLocaleDateString("sv-SE");
+    Inertia.get(route('applications.edit', {
+        application: id,
+        applied_at: today,
+    }));
+}
 </script>
 
 <template>
@@ -76,6 +85,9 @@ const deleteApplication = id => {
                             </div>
                         </div>
                         <div class="w-full mx-auto">
+                            <!-- <button @click="appliedApplication(application.id)"
+                                class="w-1/5 py-2 text-white bg-green-500 border-0 focus:outline-none hover:bg-green-600 rounded-l-xl">
+                                申請する</button> -->
                             <Link as="button" :href="route('applications.edit', { application: application.id })"
                                 class="w-1/4 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             編集する</Link>

@@ -31,6 +31,8 @@ defineProps({
                                     <thead>
                                         <tr>
                                             <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                詳細</th>
+                                            <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 申請書番号</th>
                                             <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 品名</th>
@@ -52,19 +54,43 @@ defineProps({
                                     </thead>
                                     <tbody>
                                         <tr v-for="application in applications" :key="application.id">
-                                            <td class="px-2 py-3">
-                                                <Link class="text-blue-400" :href="route('applications.show', { application: application.id })">
-                                                    {{ application.id }}
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">
+                                                <Link class="w-full text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl" as="button" :href="route('applications.show', { application: application.id })">
+                                                    詳細
                                                 </Link>
                                             </td>
-                                            <td class="px-2 py-3 text-start">{{ application.subject }}</td>
-                                            <td class="px-2 py-3">{{ application.works_quantity }}</td>
-                                            <td class="px-2 py-3">{{ application.severity }}</td>
-                                            <td class="px-2 py-3">{{ application.revision }}</td>
-                                            <td class="px-2 py-3">{{ application.applied_at }}</td>
-                                            <td class="px-2 py-3">{{ application.desired_dlvd_at }}</td>
-                                            <td class="px-2 py-3">{{ application.ttl_price_exc }}</td>
-                                            <td class="px-2 py-3">{{ application.ttl_price_incl }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">
+                                                <Link class="w-full text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-xl" as="button" :href="route('applications.show', { application: application.id })">
+                                                    問合せ
+                                                </Link>
+                                            </td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.id }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100"><p>{{ application.id }}</p></td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3 text-start">{{ application.subject }}</td>
+                                            <td v-else class="px-2 py-3 text-start bg-gray-100">{{ application.subject }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.works_quantity }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.works_quantity }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.severity }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.severity }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.revision }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.revision }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.applicated_at }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.applicated_at }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.desired_dlvd_at }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.desired_dlvd_at }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.ttl_price_exc }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.ttl_price_exc }}</td>
+
+                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.ttl_price_incl }}</td>
+                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.ttl_price_incl }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

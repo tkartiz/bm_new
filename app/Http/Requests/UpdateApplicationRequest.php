@@ -25,6 +25,7 @@ class UpdateApplicationRequest extends FormRequest
             'subject' => ['required', 'max:50'],
             'severity' => ['required', 'string'],
             'works_quantity' => ['numeric'],
+            'applicated_at' => ['nullable', 'date'],
             'desired_dlvd_at' => ['required', 'date'],
         ];
     }

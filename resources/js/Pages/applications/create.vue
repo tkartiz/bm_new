@@ -20,9 +20,6 @@ const form = reactive({
     desired_dlvd_at: null,
 });
 
-// sv-SEロケールはYYYY-MM-DD形式の日付文字列を戻すので使用する
-var today = new Date().toLocaleDateString("sv-SE");
-
 const storeApplication = () => {
     form.user_id = document.getElementById("user_id").value;
     form.revision = 0;
