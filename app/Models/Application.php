@@ -27,4 +27,9 @@ class Application extends Model
         return $this->hasMany(Workspec::class, 'application_id', 'id');
     }
 
+    public function Application2Contact(): HasMany
+    {
+        return $this->hasMany(Workspec::class, 'application_id', 'id');
+    }
+
 }

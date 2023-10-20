@@ -60,7 +60,7 @@ defineProps({
                                                 </Link>
                                             </td>
                                             <td v-else class="px-2 py-3 bg-gray-100">
-                                                <Link class="w-full text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-xl" as="button" :href="route('applications.show', { application: application.id })">
+                                                <Link class="w-full text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-xl" as="button" :href="route('contacts.create', { application: application.id })">
                                                     問合せ
                                                 </Link>
                                             </td>

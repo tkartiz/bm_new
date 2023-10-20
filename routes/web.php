@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkspecController;
 use App\Http\Controllers\OutsourcingController;
+
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,9 @@ use App\Http\Controllers\OutsourcingController;
 */
 
 Route::resource('applications', ApplicationController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('contacts', ContactController::class)
 ->middleware(['auth', 'verified']);
 
 Route::resource('works', WorkController::class)

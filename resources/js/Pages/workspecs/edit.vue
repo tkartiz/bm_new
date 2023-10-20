@@ -73,7 +73,6 @@ const updateWorkspec = (id) => {
                                 <BreezeValidationErrors :errors="errors" />
                                 <form @submit.prevent="updateWorkspec(form.id)">
                                     <input type="integer" id="application_id" name="application_id" v-bind:value="application.id" class="hidden"/>
-                                    {{ form }}
                                     <div class="p-2 w-full text-center">
                                         <div class="mb-5">
                                             <div class="w-full flex">
