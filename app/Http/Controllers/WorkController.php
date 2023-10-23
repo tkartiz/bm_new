@@ -8,9 +8,11 @@ use App\Http\Requests\UpdateWorkRequest;
 use Inertia\Inertia;
 
 use App\Models\Work;
+use App\Models\Admin;
+use App\Models\User;
+use App\Models\Creator;
 use App\Models\Application;
-
-use Illuminate\Support\Facades\Auth;
+use App\Models\Workspec;
 
 class WorkController extends Controller
 {
@@ -19,7 +21,14 @@ class WorkController extends Controller
      */
     public function index()
     {
-        //
+        $work = Work::all();
+        $Work2Workspec = Workspec::all();
+        $Workspec2Application = Application::all();
+        return Inertia::render('works/index', [
+            'works' => $work,
+            'workspecs' => $Work2Workspec,
+            'applications' => $Workspec2Application,
+        ]);
     }
 
     /**
@@ -43,8 +52,17 @@ class WorkController extends Controller
      */
     public function show(Work $work)
     {
-        return Inertia::render('works/index', [
-
+        $Work2Workspec = Workspec::find($work->work_spec_id);
+        $Workspec2Application = Application::find($Work2Workspec->application_id);
+        $user = User::where('id', '=', $Workspec2Application->user_id)->get();
+        $user = $user[0];
+        $creator = Creator::find($work->creator_id);
+        return Inertia::render('works/show', [
+            'work' => $work,
+            'workspec' => $Work2Workspec,
+            'application' => $Workspec2Application,
+            'user' => $user,
+            'creator' => $creator,
         ]);
     }
 
@@ -53,7 +71,18 @@ class WorkController extends Controller
      */
     public function edit(Work $work)
     {
-        //
+        $Work2Workspec = Workspec::find($work->work_spec_id);
+        $Workspec2Application = Application::find($Work2Workspec->application_id);
+        $user = User::where('id', '=', $Workspec2Application->user_id)->get();
+        $user = $user[0];
+        $creators = Creator::all();
+        return Inertia::render('works/edit', [
+            'work' => $work,
+            'workspec' => $Work2Workspec,
+            'application' => $Workspec2Application,
+            'user' => $user,
+            'creators' => $creators,
+        ]);
     }
 
     /**
@@ -61,7 +90,22 @@ class WorkController extends Controller
      */
     public function update(UpdateWorkRequest $request, Work $work)
     {
-        //
+        $work->creator_id = $request->creator_id;
+        if ($request->outsourcing === "0") {
+            $work->outsourcing = false;
+        } else {
+            $work->outsourcing = true;
+        }
+        $work->started_at = $request->started_at;
+        $work->completed_at = $request->completed_at;
+        $work->message = $request->message;
+        $work->save();
+
+        return to_route('admin.works.show', ['work' => $request->work_id])
+            ->with([
+                'message' => '更新しました。',
+                'status' => 'success',
+            ]);
     }
 
     /**

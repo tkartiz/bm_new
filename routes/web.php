@@ -24,19 +24,16 @@ use App\Http\Controllers\MailController;
 */
 
 Route::resource('applications', ApplicationController::class)
-->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified']);
 
 Route::resource('contacts', ContactController::class)
-->middleware(['auth', 'verified']);
-
-Route::resource('works', WorkController::class)
-->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified']);
 
 Route::resource('workspecs', WorkspecController::class)
-->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified']);
 
 Route::resource('outsoucings', OutsourcingController::class)
-->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -47,23 +44,23 @@ Route::get('/', function () {
     ]);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
-Route::prefix('admin')->name('admin.')->group(function(){
+Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
     })->middleware(['auth:admin', 'verified'])->name('dashboard');
-    
-    require __DIR__.'/admin.php';
+
+    require __DIR__ . '/admin.php';
 });
 
-Route::prefix('creator')->name('creator.')->group(function(){
+Route::prefix('creator')->name('creator.')->group(function () {
 
     Route::get('/dashboard', function () {
         return Inertia::render('Creator/Dashboard');
     })->middleware(['auth:creator', 'verified'])->name('dashboard');
-    
-    require __DIR__.'/creator.php';
+
+    require __DIR__ . '/creator.php';
 });

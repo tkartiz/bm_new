@@ -18,7 +18,7 @@ class Work extends Model
         'outsourcing',
         'os_appd_id',
         'started_at',
-        'completed_id',
+        'completed_at',
         'price_incl',
         'price_exc',
         'message',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workspec;
+use App\Models\Work;
 use App\Models\Application;
 
 use App\Http\Controllers\Controller;
@@ -58,7 +59,7 @@ class WorkspecController extends Controller
             $request->file = $file_name;
         }
 
-        Workspec::create([
+        $workspec = Workspec::create([
             'application_id' => $request->application_id,
             'size' => $request->size,
             'format' => $request->format,
@@ -67,6 +68,11 @@ class WorkspecController extends Controller
             'file' => $request->file,
             'quantity' => $request->quantity,
             'unit' => $request->unit,
+        ]);
+
+        $workspecId = $workspec->id;
+        Work::create([
+            'work_spec_id' => $workspecId,
         ]);
 
         // 親の申請書の制作物点数を更新する

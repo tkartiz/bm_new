@@ -41,8 +41,6 @@ defineProps({
                                             <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 緊急度</th>
                                             <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                                修正履歴</th>
-                                            <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 申請日</th>
                                             <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                                 希望納期</th>
@@ -76,9 +74,6 @@ defineProps({
 
                                             <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.severity }}</td>
                                             <td v-else class="px-2 py-3 bg-gray-100">{{ application.severity }}</td>
-
-                                            <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.revision }}</td>
-                                            <td v-else class="px-2 py-3 bg-gray-100">{{ application.revision }}</td>
 
                                             <td v-if="application.applicated_at === null" class="px-2 py-3">{{ application.applicated_at }}</td>
                                             <td v-else class="px-2 py-3 bg-gray-100">{{ application.applicated_at }}</td>

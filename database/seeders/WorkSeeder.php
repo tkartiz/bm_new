@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\DB;
+
 class WorkSeeder extends Seeder
 {
     /**
@@ -14,6 +16,11 @@ class WorkSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('works')->insert([
+            ['work_spec_id' => 1],
+            ['work_spec_id' => 2],
+            ['work_spec_id' => 3],
+            ['work_spec_id' => 4],
+        ]);
     }
 }
