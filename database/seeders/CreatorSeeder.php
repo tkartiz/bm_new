@@ -19,6 +19,13 @@ class CreatorSeeder extends Seeder
     {
         DB::table('creators')->insert([
             [
+                'name' => '未設定',
+                'affiliation' => 'デザイン部',
+                'email' => 'unfixed@artiz.com',
+                'phone' => '',
+                'password' => Hash::make('password123'),
+            ],
+            [
                 'name' => 'デザイナーCさん',
                 'affiliation' => 'デザイン部',
                 'email' => 'c@artiz.com',

@@ -7,6 +7,8 @@ defineProps({
     works: Array,
     workspecs: Array,
     application: Array,
+    creators: Array,
+    os_appd: Array,
 })
 </script>
 
@@ -16,6 +18,7 @@ defineProps({
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物・一覧</h2>
         </template>
+        {{ $page.props.auth }}
         <div class="py-3">
             <div class="container mx-auto">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -72,11 +75,20 @@ defineProps({
                                             </td>
                                             <td class="px-2 py-3">{{ work.id }}</td>
                                             <td class="px-2 py-3">{{ work.work_spec_id }}</td>
-                                            <td class="px-2 py-3">{{ work.creator_id }}</td>
-                                            <td class="px-2 py-3">{{ work.outsourcing }}</td>
+                                            <td class="px-2 py-3">
+                                                <p v-for="creator in creators" :key="creator.id">
+                                                    <span v-if="creator.id == work.creator_id">{{ creator.name }}</span>
+                                                    <span v-else></span>
+                                                </p>
+                                            </td>
+                                            <td class="px-2 py-3">
+                                                <p v-if="work.outsourcing == 1">あり</p>
+                                                <p v-if="work.outsourcing == 0">なし</p>
+                                                <p v-else></p>
+                                            </td>
                                             <td class="px-2 py-3">{{ work.os_appd_id }}</td>
                                             <td class="px-2 py-3">{{ work.started_at }}</td>
-                                            <td class="px-2 py-3">{{ work.completed_id }}</td>
+                                            <td class="px-2 py-3">{{ work.completed_at }}</td>
                                             <td class="px-2 py-3">{{ work.price_incl }}</td>
                                             <td class="px-2 py-3">{{ work.price_exc }}</td>
                                         </tr>

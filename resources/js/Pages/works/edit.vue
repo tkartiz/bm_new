@@ -118,7 +118,6 @@ const updateWork = (id) => {
                             <div class="px-5 py-2 bg-white mb-5">
                                 <BreezeValidationErrors :errors="errors" />
                                 <form @submit.prevent="updateWork(form.id)" class="w-full">
-                                    {{ form }}
                                     <input id="work_id" :value="work.id" type="hidden"> 
                                     <div class="p-2 w-full mx-auto overflow-auto">
                                         <p class="font-medium">情報</p>

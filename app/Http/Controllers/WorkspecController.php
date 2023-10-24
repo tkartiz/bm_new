@@ -70,9 +70,8 @@ class WorkspecController extends Controller
             'unit' => $request->unit,
         ]);
 
-        $workspecId = $workspec->id;
         Work::create([
-            'work_spec_id' => $workspecId,
+            'work_spec_id' => $workspec->id,
         ]);
 
         // 親の申請書の制作物点数を更新する

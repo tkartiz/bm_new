@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('price_incl')->nullable();
             $table->integer('price_exc')->nullable();
             $table->string('price_list')->nullable();
-            $table->integer('comp_num');
+            $table->integer('comp_num')->nullable();
             $table->string('remarks')->nullable();
             $table->integer('appd1_id')->nullable();
             $table->boolean('appd1_approval')->nullable();

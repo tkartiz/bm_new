@@ -32,6 +32,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('creator.dashboard')" :active="route().current('creator.dashboard')">
                                     Dashboard
                                 </NavLink>
+                                <NavLink :href="route('creator.works.index')" :active="route().current('creator.works.index')">
+                                    制作物一覧
+                                </NavLink>
                             </div>
                         </div>
 

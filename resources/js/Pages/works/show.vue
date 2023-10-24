@@ -19,7 +19,7 @@ defineProps({
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物内容</h2>
         </template>
-        
+        制作物内容
         <div class="py-3">
             <div class="container mx-auto">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -158,12 +158,13 @@ defineProps({
                                         <tr>
                                             <td class="px-2 py-3 w-2/12">{{ creator.name }}</td>
                                             <td class="px-2 py-3 w-1/12">
+                                                <p v-if="work.outsourcing == 1">あり</p>
                                                 <p v-if="work.outsourcing == 0">なし</p>
-                                                <p v-else>あり</p>
+                                                <p v-else></p>
                                             </td>
                                             <td class="px-2 py-3 w-1/12">{{ work.os_appd_id }}</td>
                                             <td class="px-2 py-3 w-1/12">{{ work.started_at }}</td>
-                                            <td class="px-2 py-3 w-1/12">{{ work.completed_id }}</td>
+                                            <td class="px-2 py-3 w-1/12">{{ work.completed_at }}</td>
                                             <td class="px-2 py-3 w-1/12">{{ work.price_incl }}</td>
                                             <td class="px-2 py-3 w-1/12">{{ work.price_exc }}</td>
                                             <td class="px-2 py-3 text-start">{{ work.message }}</td>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('outsourcings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('os_appd_id');
-            $table->string('comp_name');
+            $table->string('comp_name')->nullable();
             $table->integer('comp_price_incl')->nullable();
             $table->integer('comp_price_exc')->nullable();
             $table->string('remarks')->nullable();

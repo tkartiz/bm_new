@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Creator\ProfileController;
 
+use App\Http\Controllers\WorkController;
+use App\Http\Controllers\Os_appdController;
+use App\Http\Controllers\OutsourcingController;
+
 Route::get('/', function () {
     return Inertia::render('Creator/Welcome', [
         'canLogin' => Route::has('login'),
@@ -78,4 +82,13 @@ Route::middleware('auth:creator')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    Route::resource('works', WorkController::class)
+        ->middleware(['auth', 'verified']);
+
+    Route::resource('os_appds', Os_appdController::class)
+        ->middleware(['auth', 'verified']);
+
+    Route::resource('outsourcings', OutsourcingController::class)
+        ->middleware(['auth', 'verified']);
 });
