@@ -10,8 +10,9 @@ const props = defineProps({
     work: Object,
     workspec: Object,
     application: Object,
-    user: Object,
+    client: Object,
     creators: Array,
+    user: Object,
 })
 
 const form = reactive({
@@ -25,7 +26,12 @@ const form = reactive({
 
 const updateWork = (id) => {
     form.work_id = document.getElementById("work_id").value;
-    Inertia.put(route('admin.works.update', { work: id }), form);
+    let userRoll = document.getElementById("user_roll").value;
+    if(userRoll === 'admin'){
+        Inertia.put(route('admin.works.update', { work: id }), form);
+    } else if(userRoll === 'creator') {
+        Inertia.put(route('creator.works.update', { work: id }), form);
+    };
 }
 
 </script>
@@ -36,7 +42,6 @@ const updateWork = (id) => {
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物編集</h2>
         </template>
-        制作物編集
         <div class="py-3">
             <div class="container mx-auto">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -47,8 +52,8 @@ const updateWork = (id) => {
                                 <!-- 依頼者情報 -->
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
                                     <p class="w-1/3">申請番号：{{ application.id }} </p>
-                                    <p class="w-1/3">依頼者：{{ user.name }}</p>
-                                    <p class="w-1/3">所属：{{ user.affiliation }}</p>
+                                    <p class="w-1/3">依頼者：{{ client.name }}</p>
+                                    <p class="w-1/3">所属：{{ client.affiliation }}</p>
                                 </div>
                             </div>
                             <div class="px-5 py-2 bg-white mb-5">
@@ -62,8 +67,8 @@ const updateWork = (id) => {
                                 </div>
                                 <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
                                     <p class="w-4/6"></p>
-                                    <p class="w-1/6">見積金額（税抜）:￥{{ application.price_incl }}</p>
-                                    <p class="w-1/6">見積金額（税込）:￥{{ application.price_exc }}</p>
+                                    <p class="w-1/6">見積金額（税抜）:￥{{ application.price_exc }}</p>
+                                    <p class="w-1/6">見積金額（税込）:￥{{ application.price_incl }}</p>
                                 </div>
                             </div>
 
@@ -118,7 +123,8 @@ const updateWork = (id) => {
                             <div class="px-5 py-2 bg-white mb-5">
                                 <BreezeValidationErrors :errors="errors" />
                                 <form @submit.prevent="updateWork(form.id)" class="w-full">
-                                    <input id="work_id" :value="work.id" type="hidden"> 
+                                    <input id="work_id" :value="work.id" type="hidden">
+                                    <input id="user_roll" :value="user.roll" type="hidden">
                                     <div class="p-2 w-full mx-auto overflow-auto">
                                         <p class="font-medium">情報</p>
                                         <table class="table-auto w-full text-center whitespace-no-wrap">
@@ -154,7 +160,8 @@ const updateWork = (id) => {
                                                 <tr>
                                                     <td class="px-2 py-3 w-2/12">
                                                         <select v-model="form.creator_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                            <option v-for="creator in creators" :key="creator.id" :value="creator.id">{{ creator.name }}</option>
+                                                            <option v-if="user.roll === 'admin'" v-for="creator in creators" :key="creator.id" :value="creator.id">{{ creator.name }}</option>
+                                                            <option v-if="user.roll === 'creator'" :value="creators.id">{{ creators.name }}</option>
                                                         </select>
                                                     </td>
                                                     <td class="px-2 py-3 w-1/12">
@@ -162,6 +169,7 @@ const updateWork = (id) => {
                                                             <option value="0">なし</option>
                                                             <option value="1">あり</option>
                                                         </select>
+                                                        <p></p>
                                                     </td>
                                                     <td class="px-2 py-3 w-1/12">{{ work.os_appd_id }}</td>
                                                     <td class="px-2 py-3 w-1/12" ><input type="date" v-model="form.started_at" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></td>
@@ -180,7 +188,10 @@ const updateWork = (id) => {
                                     <div class="w-full mx-auto my-10">
                                         <button type="submit"
                                             class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">更新する</button>
-                                        <Link as="button" :href="route('admin.works.show', { work: work.id })"
+                                        <Link v-if="user.roll === 'admin'" as="button" :href="route('admin.works.show', { work: work.id })"
+                                            class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
+                                        戻る</Link>
+                                        <Link v-if="user.roll === 'creator'" as="button" :href="route('creator.works.show', { work: work.id })"
                                             class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                                         戻る</Link>
                                     </div>

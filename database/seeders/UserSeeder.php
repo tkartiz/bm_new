@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
+                'roll' => 'user',
                 'name' => 'Aさん',
                 'affiliation' => '営業部',
                 'email' => 'test@test.com',
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password123'),
             ],
             [
+                'roll' => 'user',
                 'name' => 'Bさん',
                 'affiliation' => '販売部',
                 'email' => 'demo@demo.com',

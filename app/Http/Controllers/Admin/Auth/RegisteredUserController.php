@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = Admin::create([
+            'roll' => 'admin',
             'name' => $request->name,
             'affiliation' => $request->affiliation,
             'email' => $request->email,

@@ -7,6 +7,8 @@ use App\Http\Requests\StoreWorkRequest;
 use App\Http\Requests\UpdateWorkRequest;
 use Inertia\Inertia;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Work;
 use App\Models\Admin;
 use App\Models\User;
@@ -22,18 +24,30 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $work = Work::all();
-        $Work2Workspec = Workspec::all();
-        $Workspec2Application = Application::all();
-        $creators = Creator::all();
-        $os_appd = Os_appd::all();
-        return Inertia::render('works/index', [
-            'works' => $work,
-            'workspecs' => $Work2Workspec,
-            'applications' => $Workspec2Application,
-            'creators' => $creators,
-            'os_appd' => $os_appd,
-        ]);
+        $user = Auth::user();
+        if ($user->roll === 'admin') {
+            return Inertia::render('works/index', [
+                'works' => Work::all(),
+                'workspecs' => Workspec::all(),
+                'applications' => Application::all(),
+                'os_appd' => Os_appd::all(),
+                'creators' => Creator::all(),
+                'user' => $user,
+            ]);
+        } else {
+            $creators = Creator::where('id', '=', $user->id)->first();
+            $work = Work::where('creator_id', '=', $user->id)->get();
+            $os_appd = Os_appd::all();
+
+            return Inertia::render('works/index', [
+                'works' => $work,
+                'workspecs' => Workspec::all(),
+                'applications' => Application::all(),
+                'os_appd' => $os_appd,
+                'creators' => $creators,
+                'user' => $user,
+            ]);
+        };
     }
 
     /**
@@ -59,18 +73,21 @@ class WorkController extends Controller
     {
         $Work2Workspec = Workspec::find($work->work_spec_id);
         $Workspec2Application = Application::find($Work2Workspec->application_id);
-        $user = User::where('id', '=', $Workspec2Application->user_id)->get();
-        $user = $user[0];
-        $creator = Creator::find($work->creator_id);
-        if($creator === null){
-            $creator = Creator::find(1); //　未設定の場合の制作者ダミーを表示
+        $Work2Os_appd = Os_appd::where('work_id', '=', $work->id)->first();
+        $client = User::where('id', '=', $Workspec2Application->user_id)->first();
+        if($work->creator_id !== null){
+            $creator = Creator::find($work->creator_id);
         }
+        $user = Auth::user();
+
         return Inertia::render('works/show', [
             'work' => $work,
             'workspec' => $Work2Workspec,
             'application' => $Workspec2Application,
-            'user' => $user,
+            'os_appd' => $Work2Os_appd,
+            'client' => $client,
             'creator' => $creator,
+            'user' => $user,
         ]);
     }
 
@@ -79,18 +96,36 @@ class WorkController extends Controller
      */
     public function edit(Work $work)
     {
-        $Work2Workspec = Workspec::find($work->work_spec_id);
-        $Workspec2Application = Application::find($Work2Workspec->application_id);
-        $user = User::where('id', '=', $Workspec2Application->user_id)->get();
-        $user = $user[0];
-        $creators = Creator::all();
-        return Inertia::render('works/edit', [
-            'work' => $work,
-            'workspec' => $Work2Workspec,
-            'application' => $Workspec2Application,
-            'user' => $user,
-            'creators' => $creators,
-        ]);
+        $user = Auth::user();
+        if ($user->roll === 'admin') {
+            $Work2Workspec = Workspec::find($work->work_spec_id);
+            $Workspec2Application = Application::find($Work2Workspec->application_id);
+            $client = User::where('id', '=', $Workspec2Application->user_id)->first();
+            $creators = Creator::all();
+
+            return Inertia::render('works/edit', [
+                'work' => $work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'client' => $client,
+                'creators' => $creators,
+                'user' => $user,
+            ]);
+        } else {
+            $Work2Workspec = Workspec::find($work->work_spec_id);
+            $Workspec2Application = Application::find($Work2Workspec->application_id);
+            $client = User::where('id', '=', $Workspec2Application->user_id)->first();
+            $creators = Creator::where('id', '=', $user->id)->first();
+
+            return Inertia::render('works/edit', [
+                'work' => $work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'client' => $client,
+                'creators' => $creators,
+                'user' => $user,
+            ]);
+        }
     }
 
     /**
@@ -99,27 +134,37 @@ class WorkController extends Controller
     public function update(UpdateWorkRequest $request, Work $work)
     {
         $work->creator_id = $request->creator_id;
-        if ($request->outsourcing === "0") {
-            $work->outsourcing = false;
-        } else {
+        if ($request->outsourcing === "1") {
             $work->outsourcing = true;
-            $os_appd = Os_appd::where('work_id','=',$work->id)->first();
-            if(empty($os_appd)){
+            $os_appd = Os_appd::where('work_id', '=', $work->id)->first();
+            if (empty($os_appd)) {
                 Os_appd::create([
                     'work_id' => $work->id,
                 ]);
             }
+        } elseif ($request->outsourcing === "0") {
+            $work->outsourcing = false;
         }
+
         $work->started_at = $request->started_at;
         $work->completed_at = $request->completed_at;
         $work->message = $request->message;
         $work->save();
 
-        return to_route('admin.works.index', ['work' => $request->work_id])
-            ->with([
-                'message' => '更新しました。',
-                'status' => 'success',
-            ]);
+        $user = Auth::user();
+        if ($user->roll === 'admin') {
+            return to_route('admin.works.index', ['work' => $request->work_id])
+                ->with([
+                    'message' => '更新しました。',
+                    'status' => 'success',
+                ]);
+        } else {
+            return to_route('creator.works.index', ['work' => $request->work_id])
+                ->with([
+                    'message' => '更新しました。',
+                    'status' => 'success',
+                ]);
+        }
     }
 
     /**

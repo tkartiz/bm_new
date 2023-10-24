@@ -19,6 +19,7 @@ class AdminSeeder extends Seeder
     {
         DB::table('admins')->insert([
             [
+                'roll' => 'admin',
                 'name' => 'artiz',
                 'affiliation' => 'デザイン部',
                 'email' => 'artiz@artiz.com',

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Os_appd extends Model
@@ -28,7 +30,12 @@ class Os_appd extends Model
         'appd2_approval',
         'appd2_comment',
         'appd2_appd_at',
-    ];    
+    ];
+
+    public function Os_appd2Work(): BelongsTo
+    {
+        return $this->belongsTo(Work::class);
+    }
 
     public function Os_appd2Outsourcing(): HasOne
     {

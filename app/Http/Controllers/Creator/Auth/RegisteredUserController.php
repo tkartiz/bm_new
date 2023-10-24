@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = Creator::create([
+            'roll' => 'creator',
             'name' => $request->name,
             'affiliation' => $request->affiliation,
             'email' => $request->email,

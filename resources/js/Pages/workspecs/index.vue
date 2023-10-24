@@ -40,8 +40,8 @@ defineProps({
                             </div>
                             <div class="p-2 w-full flex flex-wrap text-sm text-gray-600">
                                 <p class="w-4/6"></p>
-                                <p class="w-1/6">見積金額（税抜）:￥{{ application.price_incl }}</p>
-                                <p class="w-1/6">見積金額（税込）:￥{{ application.price_exc }}</p>
+                                <p class="w-1/6">見積金額（税抜）:￥{{ application.price_exc }}</p>
+                                <p class="w-1/6">見積金額（税込）:￥{{ application.price_incl }}</p>
                             </div>
                         </div>
 

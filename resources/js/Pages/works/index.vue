@@ -7,8 +7,9 @@ defineProps({
     works: Array,
     workspecs: Array,
     application: Array,
-    creators: Array,
     os_appd: Array,
+    creators: Array,
+    user: Object,
 })
 </script>
 
@@ -18,7 +19,6 @@ defineProps({
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物・一覧</h2>
         </template>
-        {{ $page.props.auth }}
         <div class="py-3">
             <div class="container mx-auto">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -67,19 +67,25 @@ defineProps({
                                     <tbody v-for="work in works" :key="work.id">
                                         <tr>
                                             <td class="px-2 py-3">
-                                                <Link
+                                                <Link v-if="user.roll === 'admin'"
                                                     class="w-full text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl"
                                                     as="button" :href="route('admin.works.show', { work: work.id })">
+                                                詳細
+                                                </Link>
+                                                <Link v-if="user.roll === 'creator'"
+                                                    class="w-full text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl"
+                                                    as="button" :href="route('creator.works.show', { work: work.id })">
                                                 詳細
                                                 </Link>
                                             </td>
                                             <td class="px-2 py-3">{{ work.id }}</td>
                                             <td class="px-2 py-3">{{ work.work_spec_id }}</td>
                                             <td class="px-2 py-3">
-                                                <p v-for="creator in creators" :key="creator.id">
+                                                <p v-if="user.roll === 'admin'" v-for="creator in creators" :key="creator.id">
                                                     <span v-if="creator.id == work.creator_id">{{ creator.name }}</span>
                                                     <span v-else></span>
                                                 </p>
+                                                <p v-else><span v-if="creators.id == work.creator_id">{{ creators.name }}</span></p>
                                             </td>
                                             <td class="px-2 py-3">
                                                 <p v-if="work.outsourcing == 1">あり</p>
@@ -89,8 +95,8 @@ defineProps({
                                             <td class="px-2 py-3">{{ work.os_appd_id }}</td>
                                             <td class="px-2 py-3">{{ work.started_at }}</td>
                                             <td class="px-2 py-3">{{ work.completed_at }}</td>
-                                            <td class="px-2 py-3">{{ work.price_incl }}</td>
                                             <td class="px-2 py-3">{{ work.price_exc }}</td>
+                                            <td class="px-2 py-3">{{ work.price_incl }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

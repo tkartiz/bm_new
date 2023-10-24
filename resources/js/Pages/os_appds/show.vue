@@ -16,10 +16,10 @@ defineProps({
 </script>
 
 <template>
-    <Head title="制作物内容" />
+    <Head title="外注承認書" />
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">制作物内容</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">外注承認書</h2>
         </template>
         <div class="py-3">
             <div class="container mx-auto">
@@ -161,17 +161,15 @@ defineProps({
                                                 <p><span>{{ creator.name }}</span></p>
                                             </td>
                                             <td class="px-2 py-3 w-1/12">
-                                                <Link as="button" class="w-full p-1 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl" v-if="work.outsourcing == 1" :href="route('creator.os_appds.show', { os_appd: os_appd.id })"
-                                                    >あり
-                                                </Link>
+                                                <p v-if="user.roll === 'creator' && work.outsourcing == 1">あり</p>
                                                 <p v-if="work.outsourcing == 0">なし</p>
                                                 <p v-else></p>
                                             </td>
                                             <td class="px-2 py-3 w-1/12">{{ work.os_appd_id }}</td>
                                             <td class="px-2 py-3 w-1/12">{{ work.started_at }}</td>
                                             <td class="px-2 py-3 w-1/12">{{ work.completed_at }}</td>
-                                            <td class="px-2 py-3 w-1/12">{{ work.price_exc }}</td>
                                             <td class="px-2 py-3 w-1/12">{{ work.price_incl }}</td>
+                                            <td class="px-2 py-3 w-1/12">{{ work.price_exc }}</td>
                                             <td class="px-2 py-3 text-start">{{ work.message }}</td>
                                         </tr>
                                     </tbody>
@@ -180,18 +178,18 @@ defineProps({
                         </div>
 
                         <div v-if="user.roll === 'admin'" class="w-full mx-auto">
-                            <Link as="button" :href="route('admin.works.edit', { work: work.id })"
+                            <Link as="button" :href="route('admin.os_appds.edit', { os_appd: os_appd.id })"
                                 class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             入力する</Link>
-                            <Link as="button" :href="route('admin.works.index')"
+                            <Link as="button" :href="route('admin.os_appds.index')"
                                 class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                             戻る</Link>
                         </div>
                         <div v-if="user.roll === 'creator'" class="w-full mx-auto">
-                            <Link as="button" :href="route('creator.works.edit', { work: work.id })"
+                            <Link as="button" :href="route('creator.os_appds.edit', { os_appd: os_appd.id })"
                                 class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             入力する</Link>
-                            <Link as="button" :href="route('creator.works.index')"
+                            <Link as="button" :href="route('creator.os_appds.index')"
                                 class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                             戻る</Link>
                         </div>
