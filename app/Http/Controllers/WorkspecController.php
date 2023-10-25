@@ -52,7 +52,7 @@ class WorkspecController extends Controller
     {
         // 選択されたファイル情報よりファイルをアップロードしてパスを保存する
         if($request->file){
-            $directory = 'public/'.$request->application_id;
+            $directory = 'public/application/'.$request->application_id;
             Storage::makeDirectory($directory);
             $file_name = $request->file('file')->getClientOriginalName();
             $request->file('file')->storeAs($directory, $file_name);

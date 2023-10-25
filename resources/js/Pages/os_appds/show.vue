@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/Layouts/CreatorAuthenticatedLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
@@ -181,7 +181,7 @@ defineProps({
                             <Link as="button" :href="route('admin.os_appds.edit', { os_appd: os_appd.id })"
                                 class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             入力する</Link>
-                            <Link as="button" :href="route('admin.os_appds.index')"
+                            <Link as="button" :href="route('admin.works.show', { work: work.id })"
                                 class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                             戻る</Link>
                         </div>
@@ -189,7 +189,7 @@ defineProps({
                             <Link as="button" :href="route('creator.os_appds.edit', { os_appd: os_appd.id })"
                                 class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             入力する</Link>
-                            <Link as="button" :href="route('creator.os_appds.index')"
+                            <Link as="button" :href="route('creator.works.show', { work: work.id })"
                                 class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                             戻る</Link>
                         </div>
@@ -197,4 +197,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout></template>
+    </AuthenticatedLayout>
+</template>
