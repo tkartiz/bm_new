@@ -30,6 +30,7 @@ return new class extends Migration
             $table->boolean('appd2_approval')->nullable();
             $table->string('appd2_comment')->nullable();
             $table->date('appd2_appd_at')->nullable();
+            $table->date('requested_at')->nullable();
             $table->timestamps();
         });
     }

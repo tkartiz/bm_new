@@ -55,15 +55,19 @@ class Os_appdController extends Controller
         $client = User::where('id', '=', $Workspec2Application->user_id)->first();
         $creator = Creator::find($Os_appd2Work->creator_id);
         $user = Auth::user();
+        $admins = Admin::all();
+        $Outsourcings = Outsourcing::where('os_appd_id', '=', $os_appd->id)->get();
 
         return Inertia::render('os_appds/show', [
             'work' => $Os_appd2Work,
             'workspec' => $Work2Workspec,
             'application' => $Workspec2Application,
             'os_appd' => $os_appd,
+            'outsourcings' => $Outsourcings,
             'client' => $client,
             'creator' => $creator,
             'user' => $user,
+            'admins' => $admins,
         ]);
     }
 
@@ -78,7 +82,7 @@ class Os_appdController extends Controller
         $client = User::where('id', '=', $Workspec2Application->user_id)->first();
         $creator = Creator::find($Os_appd2Work->creator_id);
         $user = Auth::user();
-
+        $admins = Admin::all();
         $Outsourcings = Outsourcing::where('os_appd_id', '=', $os_appd->id)->get();
 
         return Inertia::render('os_appds/edit', [
@@ -90,6 +94,7 @@ class Os_appdController extends Controller
             'client' => $client,
             'creator' => $creator,
             'user' => $user,
+            'admins' => $admins,
         ]);
     }
 
@@ -98,29 +103,32 @@ class Os_appdController extends Controller
      */
     public function update(UpdateOs_appdRequest $request, Os_appd $os_appd)
     {
+        
         $os_appd->work_id = $request->work_id;
         $os_appd->comment = $request->comment;
         $os_appd->spec = $request->spec;
+
         $os_appd->order_recipient = $request->order_recipient;
-        if ($request->order_recipient === 1) {
-            if (!empty($request->comp1_name)) {
-                $os_appd->price_exc = $request->comp1_price_exc;
-                $os_appd->price_incl = $request->comp1_price_incl;
-            }
-        } elseif ($request->order_recipient === 2) {
-            if (!empty($request->comp2_name)) {
-                $os_appd->price_exc = $request->comp2_price_exc;
-                $os_appd->price_incl = $request->comp2_price_incl;
-            }
-        } elseif ($request->order_recipient === 3) {
-            if (!empty($request->comp3_name)) {
-                $os_appd->price_exc = $request->comp3_price_exc;
-                $os_appd->price_incl = $request->comp3_price_incl;
-            }
+        $Outsourcings = Outsourcing::where('os_appd_id', '=', $request->id)->get();
+        if ($request->order_recipient === $Outsourcings[0]['id']) {
+            $os_appd->order_recipient = $Outsourcings[0]['id'];
+            $os_appd->price_exc = $Outsourcings[0]['comp_price_exc'];
+            $os_appd->price_incl = $Outsourcings[0]['comp_price_incl'];
+        } elseif ($request->order_recipient === $Outsourcings[1]['id']) {
+            $os_appd->order_recipient = $Outsourcings[1]['id'];
+            $os_appd->price_exc = $Outsourcings[1]['comp_price_exc'];
+            $os_appd->price_incl = $Outsourcings[1]['comp_price_incl'];
+        } elseif ($request->order_recipient === $Outsourcings[2]['id']) {
+            $os_appd->order_recipient = $Outsourcings[2]['id'];
+            $os_appd->price_exc = $Outsourcings[2]['comp_price_exc'];
+            $os_appd->price_incl = $Outsourcings[2]['comp_price_incl'];
         }
+
         $os_appd->price_list = $request->price_list;
         $os_appd->remarks = $request->remarks;
         $os_appd->comp_num = $request->comp_num;
+        $os_appd->appd1_id = $request->appd1_id;
+        $os_appd->appd2_id = $request->appd2_id;
         $os_appd->save();
 
         $comp_num_remain = 3 - $request->comp_num_exist;
