@@ -158,10 +158,11 @@ defineProps({
                                     <tbody>
                                         <tr>
                                             <td class="px-2 py-3 w-2/12">
-                                                <p><span>{{ creator.name }}</span></p>
+                                                <p v-if="creator !== null">{{ creator.name }}</p>
+                                                <p v-else>未設定</p>
                                             </td>
                                             <td class="px-2 py-3 w-1/12">
-                                                <Link as="button" class="w-full p-1 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl" v-if="work.outsourcing == 1" :href="route('creator.os_appds.show', { os_appd: os_appd.id })"
+                                                <Link as="button" class="w-full p-1 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl" v-if="work.outsourcing == 1" :href="route('admin.os_appds.show', { os_appd: os_appd.id })"
                                                     >あり
                                                 </Link>
                                                 <p v-if="work.outsourcing == 0">なし</p>
@@ -179,19 +180,11 @@ defineProps({
                             </div>
                         </div>
 
-                        <div v-if="user.roll === 'admin'" class="w-full mx-auto">
+                        <div class="w-full mx-auto">
                             <Link as="button" :href="route('admin.works.edit', { work: work.id })"
                                 class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             入力する</Link>
                             <Link as="button" :href="route('admin.works.index')"
-                                class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
-                            戻る</Link>
-                        </div>
-                        <div v-if="user.roll === 'creator'" class="w-full mx-auto">
-                            <Link as="button" :href="route('creator.works.edit', { work: work.id })"
-                                class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
-                            入力する</Link>
-                            <Link as="button" :href="route('creator.works.index')"
                                 class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                             戻る</Link>
                         </div>

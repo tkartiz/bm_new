@@ -16,6 +16,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\ProfileController;
 
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\Os_appdController;
+use App\Http\Controllers\OutsourcingController;
 
 Route::get('/', function () {
     return Inertia::render('Admin/Welcome', [
@@ -83,4 +85,10 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::resource('works', WorkController::class)
     ->middleware(['auth', 'verified']);
+
+    Route::resource('os_appds', Os_appdController::class)
+        ->middleware(['auth', 'verified']);
+
+    Route::resource('outsourcings', OutsourcingController::class)
+        ->middleware(['auth', 'verified']);
 });

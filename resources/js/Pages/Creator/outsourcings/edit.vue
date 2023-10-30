@@ -25,12 +25,7 @@ const form = reactive({
 
 const updateOutsourcing = (id) => {
     form.os_appd_id = document.getElementById("os_appd_id").value;
-    let userRoll = document.getElementById("user_roll").value;
-    if (userRoll === 'admin') {
-        Inertia.put(route('admin.outsourcings.update', { outsourcing: id }), form);
-    } else if (userRoll === 'creator') {
-        Inertia.put(route('creator.outsourcings.update', { outsourcing: id }), form);
-    };
+    Inertia.put(route('creator.outsourcings.update', { outsourcing: id }), form);
 }
 
 </script>

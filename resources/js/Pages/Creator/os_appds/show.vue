@@ -275,15 +275,7 @@ defineProps({
                             </div>
                         </div>
 
-                        <div v-if="user.roll === 'admin'" class="w-full mx-auto">
-                            <Link as="button" :href="route('admin.os_appds.edit', { os_appd: os_appd.id })"
-                                class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
-                            編集する</Link>
-                            <Link as="button" :href="route('admin.works.show', { work: work.id })"
-                                class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
-                            戻る</Link>
-                        </div>
-                        <div v-if="user.roll === 'creator'" class="w-full mx-auto">
+                        <div class="w-full mx-auto">
                             <Link as="button" :href="route('creator.os_appds.edit', { os_appd: os_appd.id })"
                                 class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">
                             編集する</Link>

@@ -26,12 +26,7 @@ const form = reactive({
 
 const updateWork = (id) => {
     form.work_id = document.getElementById("work_id").value;
-    let userRoll = document.getElementById("user_roll").value;
-    if(userRoll === 'admin'){
-        Inertia.put(route('admin.works.update', { work: id }), form);
-    } else if(userRoll === 'creator') {
-        Inertia.put(route('creator.works.update', { work: id }), form);
-    };
+    Inertia.put(route('admin.works.update', { work: id }), form);
 }
 
 </script>
@@ -188,10 +183,7 @@ const updateWork = (id) => {
                                     <div class="w-full mx-auto my-10">
                                         <button type="submit"
                                             class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">更新する</button>
-                                        <Link v-if="user.roll === 'admin'" as="button" :href="route('admin.works.show', { work: work.id })"
-                                            class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
-                                        戻る</Link>
-                                        <Link v-if="user.roll === 'creator'" as="button" :href="route('creator.works.show', { work: work.id })"
+                                        <Link as="button" :href="route('admin.works.show', { work: work.id })"
                                             class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                                         戻る</Link>
                                     </div>

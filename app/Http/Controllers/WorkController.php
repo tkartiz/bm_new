@@ -26,7 +26,7 @@ class WorkController extends Controller
     {
         $user = Auth::user();
         if ($user->roll === 'admin') {
-            return Inertia::render('works/index', [
+            return Inertia::render('Admin/works/index', [
                 'works' => Work::all(),
                 'workspecs' => Workspec::all(),
                 'applications' => Application::all(),
@@ -39,7 +39,7 @@ class WorkController extends Controller
             $work = Work::where('creator_id', '=', $user->id)->get();
             $os_appd = Os_appd::all();
 
-            return Inertia::render('works/index', [
+            return Inertia::render('Creator/works/index', [
                 'works' => $work,
                 'workspecs' => Workspec::all(),
                 'applications' => Application::all(),
@@ -77,18 +77,33 @@ class WorkController extends Controller
         $client = User::where('id', '=', $Workspec2Application->user_id)->first();
         if($work->creator_id !== null){
             $creator = Creator::find($work->creator_id);
+        } else {
+            $creator = null;
         }
         $user = Auth::user();
 
-        return Inertia::render('works/show', [
-            'work' => $work,
-            'workspec' => $Work2Workspec,
-            'application' => $Workspec2Application,
-            'os_appd' => $Work2Os_appd,
-            'client' => $client,
-            'creator' => $creator,
-            'user' => $user,
-        ]);
+        if($user->roll == 'admin'){
+
+            return Inertia::render('Admin/works/show', [
+                'work' => $work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'os_appd' => $Work2Os_appd,
+                'client' => $client,
+                'creator' => $creator,
+                'user' => $user,
+            ]);
+        } else {
+            return Inertia::render('Creator/works/show', [
+                'work' => $work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'os_appd' => $Work2Os_appd,
+                'client' => $client,
+                'creator' => $creator,
+                'user' => $user,
+            ]);
+        }
     }
 
     /**
@@ -103,7 +118,7 @@ class WorkController extends Controller
             $client = User::where('id', '=', $Workspec2Application->user_id)->first();
             $creators = Creator::all();
 
-            return Inertia::render('works/edit', [
+            return Inertia::render('Admin/works/edit', [
                 'work' => $work,
                 'workspec' => $Work2Workspec,
                 'application' => $Workspec2Application,
@@ -117,7 +132,7 @@ class WorkController extends Controller
             $client = User::where('id', '=', $Workspec2Application->user_id)->first();
             $creators = Creator::where('id', '=', $user->id)->first();
 
-            return Inertia::render('works/edit', [
+            return Inertia::render('Creator/works/edit', [
                 'work' => $work,
                 'workspec' => $Work2Workspec,
                 'application' => $Workspec2Application,

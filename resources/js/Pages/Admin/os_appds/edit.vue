@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/CreatorAuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
@@ -35,12 +35,7 @@ const form = reactive({
 const updateWork = (id) => {
     form.work_id = document.getElementById("work_id").value;
     form.comp_num_exist = document.getElementById("comp_num_exist").value;
-    let userRoll = document.getElementById("user_roll").value;
-    if (userRoll === 'admin') {
-        Inertia.put(route('admin.os_appds.update', { os_appd: id }), form);
-    } else if (userRoll === 'creator') {
-        Inertia.put(route('creator.os_appds.update', { os_appd: id }), form);
-    };
+    Inertia.put(route('admin.os_appds.update', { os_appd: id }), form);
 }
 
 </script>
@@ -235,14 +230,16 @@ const updateWork = (id) => {
                                                         <select type="integer" v-model="form.appd2_id"
                                                             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                             <option value=""></option>
-                                                            <option v-for="admin in admins" :key="admin.id" :value="admin.id">{{ admin.name }}</option>
+                                                            <option v-for="admin in admins" :key="admin.id"
+                                                                :value="admin.id">{{ admin.name }}</option>
                                                         </select>
                                                     </td>
                                                     <td class="h-20 border border-slate-300">
                                                         <select type="integer" v-model="form.appd1_id"
                                                             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                             <option value=""></option>
-                                                            <option v-for="admin in admins" :key="admin.id" :value="admin.id">{{ admin.name }}</option>
+                                                            <option v-for="admin in admins" :key="admin.id"
+                                                                :value="admin.id">{{ admin.name }}</option>
                                                         </select>
                                                     </td>
                                                     <td class="h-20 border border-slate-300">{{ user.name }}</td>
@@ -323,7 +320,7 @@ const updateWork = (id) => {
                                                     </tr>
                                                     <tr class="w-full block p-3 py-1 text-center">
                                                         <Link as="button"
-                                                            :href="route('creator.outsourcings.edit', { outsourcing: outsourcing.id })"
+                                                            :href="route('admin.outsourcings.edit', { outsourcing: outsourcing.id })"
                                                             class="w-2/3 py-2 text-white bg-blue-500 border-0 focus:outline-none hover:bg-blue-600 rounded-xl">
                                                         編集する</Link>
                                                     </tr>
@@ -332,7 +329,8 @@ const updateWork = (id) => {
                                         </div>
                                     </div>
                                     <div class="w-full mx-auto my-10">
-                                        <div class="w-full me-auto mb-3" v-if="os_appd.appd1_approval === null && os_appd.appd2_approval === null">
+                                        <div class="w-full me-auto mb-3"
+                                            v-if="os_appd.appd1_approval === null && os_appd.appd2_approval === null">
                                             <input type="checkbox" id="applicated_at" v-model="form.check"
                                                 class="w-5 h-5 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />　申請します
                                         </div>
@@ -340,13 +338,9 @@ const updateWork = (id) => {
                                             class="w-1/2 py-2 text-white bg-orange-500 border-0 focus:outline-none hover:bg-orange-600 rounded-l-xl">申請する</button>
                                         <button v-else type="submit"
                                             class="w-1/2 py-2 text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-l-xl">更新する</button>
-                                        
-                                        <Link v-if="user.roll === 'admin'" as="button"
+
+                                        <Link as="button"
                                             :href="route('admin.os_appds.show', { os_appd: os_appd.id })"
-                                            class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
-                                        戻る</Link>
-                                        <Link v-if="user.roll === 'creator'" as="button"
-                                            :href="route('creator.os_appds.show', { os_appd: os_appd.id })"
                                             class="w-1/2 py-2 text-white bg-pink-500 border-0 focus:outline-none hover:bg-pink-600 rounded-r-xl">
                                         戻る</Link>
                                     </div>
@@ -357,5 +351,4 @@ const updateWork = (id) => {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
-</template>
+</AuthenticatedLayout></template>

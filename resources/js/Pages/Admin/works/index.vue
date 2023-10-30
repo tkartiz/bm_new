@@ -67,14 +67,8 @@ defineProps({
                                     <tbody v-for="work in works" :key="work.id">
                                         <tr>
                                             <td class="px-2 py-3">
-                                                <Link v-if="user.roll === 'admin'"
-                                                    class="w-full text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl"
+                                                <Link class="w-full text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl"
                                                     as="button" :href="route('admin.works.show', { work: work.id })">
-                                                詳細
-                                                </Link>
-                                                <Link v-if="user.roll === 'creator'"
-                                                    class="w-full text-white bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded-xl"
-                                                    as="button" :href="route('creator.works.show', { work: work.id })">
                                                 詳細
                                                 </Link>
                                             </td>

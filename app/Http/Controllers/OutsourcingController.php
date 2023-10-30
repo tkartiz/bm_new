@@ -51,10 +51,17 @@ class OutsourcingController extends Controller
     public function edit(Outsourcing $outsourcing)
     {
         $user = Auth::user();
-        return Inertia::render('outsourcings/edit', [
-            'outsourcing' => $outsourcing,
-            'user' =>  $user,
-        ]);
+        if ($user->roll === 'admin') {
+            return Inertia::render('Admin/outsourcings/edit', [
+                'outsourcing' => $outsourcing,
+                'user' =>  $user,
+            ]);
+        } else {
+            return Inertia::render('Creator/outsourcings/edit', [
+                'outsourcing' => $outsourcing,
+                'user' =>  $user,
+            ]);
+        }
     }
 
     /**

@@ -24,11 +24,20 @@ class WorkspecController extends Controller
         $Workspec2Application = Application::find($id);
         $workspecs = Workspec::where('application_id', '=', $id)->get();
 
-        return Inertia::render('workspecs/index', [
-            'user' => Auth::user(),
-            'workspecs' => $workspecs,
-            'application' => $Workspec2Application,
-        ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return Inertia::render('Creator/workspecs/index', [
+                'user' => Auth::user(),
+                'workspecs' => $workspecs,
+                'application' => $Workspec2Application,
+            ]);
+        } else {
+            return Inertia::render('workspecs/index', [
+                'user' => Auth::user(),
+                'workspecs' => $workspecs,
+                'application' => $Workspec2Application,
+            ]);
+        }
     }
 
     /**
@@ -39,10 +48,18 @@ class WorkspecController extends Controller
         $id = (Integer)$_GET['application'];
         $Workspec2Application = Application::find($id);       
 
-        return Inertia::render('workspecs/create', [
-            'user' => Auth::user(),
-            'application' => $Workspec2Application,
-        ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return Inertia::render('Creator/workspecs/create', [
+                'user' => Auth::user(),
+                'application' => $Workspec2Application,
+            ]);
+        } else {
+            return Inertia::render('workspecs/create', [
+                'user' => Auth::user(),
+                'application' => $Workspec2Application,
+            ]);
+        }
     }
 
     /**
@@ -82,11 +99,20 @@ class WorkspecController extends Controller
         $Workspec2Application->works_quantity = $works_quantity;
         $Workspec2Application->save();
 
-        return to_route('workspecs.index', ['application' => $request->application_id])
-            -> with([
-                'message' => '登録しました。',
-                'status' => 'success',
-            ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return to_route('creator.workspecs.index', ['application' => $request->application_id])
+                -> with([
+                    'message' => '登録しました。',
+                    'status' => 'success',
+                ]);
+        } else {
+            return to_route('workspecs.index', ['application' => $request->application_id])
+                -> with([
+                    'message' => '登録しました。',
+                    'status' => 'success',
+                ]);
+        }
     }
 
     /**
@@ -94,15 +120,23 @@ class WorkspecController extends Controller
      */
     public function show(Workspec $workspec)
     {
-        $user = Auth::user();
         $id = $workspec->application_id;
         $Workspec2Application = Application::find($id);
 
-        return Inertia::render('workspecs/show', [
-            'user' => $user,
-            'workspec' => $workspec,
-            'application' => $Workspec2Application,
-        ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return Inertia::render('Creator/workspecs/show', [
+                'user' => $user,
+                'workspec' => $workspec,
+                'application' => $Workspec2Application,
+            ]);
+        } else {
+            return Inertia::render('workspecs/show', [
+                'user' => $user,
+                'workspec' => $workspec,
+                'application' => $Workspec2Application,
+            ]);
+        }
     }
 
     /**
@@ -110,15 +144,23 @@ class WorkspecController extends Controller
      */
     public function edit(Workspec $workspec)
     {
-        $user = Auth::user();
         $id = $workspec->application_id;
         $Workspec2Application = Application::find($id);
 
-        return Inertia::render('workspecs/edit', [
-            'user' => $user,
-            'workspec' => $workspec,
-            'application' => $Workspec2Application,
-        ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return Inertia::render('Creator/workspecs/edit', [
+                'user' => $user,
+                'workspec' => $workspec,
+                'application' => $Workspec2Application,
+            ]);
+        } else {
+            return Inertia::render('workspecs/edit', [
+                'user' => $user,
+                'workspec' => $workspec,
+                'application' => $Workspec2Application,
+            ]);
+        }
     }
 
     /**
@@ -136,13 +178,21 @@ class WorkspecController extends Controller
         $workspec->unit = $request->unit;
         $workspec->save();
 
-        return to_route('workspecs.index', ['application' => $request->application_id])
-            -> with([
-                'message' => '更新しました。',
-                'status' => 'success',
-            ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return to_route('creator.workspecs.index', ['application' => $request->application_id])
+                -> with([
+                    'message' => '更新しました。',
+                    'status' => 'success',
+                ]);
+        } else {
+            return to_route('workspecs.index', ['application' => $request->application_id])
+                -> with([
+                    'message' => '更新しました。',
+                    'status' => 'success',
+                ]);
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -169,10 +219,19 @@ class WorkspecController extends Controller
         $Workspec2Application->works_quantity = $works_quantity;
         $Workspec2Application->save();
 
-        return to_route('workspecs.index', ['application' => $id])
-            ->with([
-                'message' => '削除しました。',
-                'status' => 'danger'
-            ]);
+        $user = Auth::user();
+        if($user->roll == 'creator'){
+            return to_route('creator.workspecs.index', ['application' => $id])
+                ->with([
+                    'message' => '削除しました。',
+                    'status' => 'danger'
+                ]);
+        } else {
+            return to_route('workspecs.index', ['application' => $id])
+                ->with([
+                    'message' => '削除しました。',
+                    'status' => 'danger'
+                ]);
+        }
     }
 }

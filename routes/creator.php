@@ -16,6 +16,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Creator\ProfileController;
 
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\WorkspecController;
 use App\Http\Controllers\Os_appdController;
 use App\Http\Controllers\OutsourcingController;
 
@@ -84,6 +85,9 @@ Route::middleware('auth:creator')->group(function () {
         ->name('logout');
 
     Route::resource('works', WorkController::class)
+        ->middleware(['auth', 'verified']);
+
+    Route::resource('workspecs', WorkspecController::class)
         ->middleware(['auth', 'verified']);
 
     Route::resource('os_appds', Os_appdController::class)

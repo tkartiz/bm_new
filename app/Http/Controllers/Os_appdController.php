@@ -58,17 +58,31 @@ class Os_appdController extends Controller
         $admins = Admin::all();
         $Outsourcings = Outsourcing::where('os_appd_id', '=', $os_appd->id)->get();
 
-        return Inertia::render('os_appds/show', [
-            'work' => $Os_appd2Work,
-            'workspec' => $Work2Workspec,
-            'application' => $Workspec2Application,
-            'os_appd' => $os_appd,
-            'outsourcings' => $Outsourcings,
-            'client' => $client,
-            'creator' => $creator,
-            'user' => $user,
-            'admins' => $admins,
-        ]);
+        if ($user->roll === 'admin') {
+            return Inertia::render('Admin/os_appds/show', [
+                'work' => $Os_appd2Work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'os_appd' => $os_appd,
+                'outsourcings' => $Outsourcings,
+                'client' => $client,
+                'creator' => $creator,
+                'user' => $user,
+                'admins' => $admins,
+            ]);
+        } else {
+            return Inertia::render('Creator/os_appds/show', [
+                'work' => $Os_appd2Work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'os_appd' => $os_appd,
+                'outsourcings' => $Outsourcings,
+                'client' => $client,
+                'creator' => $creator,
+                'user' => $user,
+                'admins' => $admins,
+            ]);
+        }
     }
 
     /**
@@ -85,17 +99,31 @@ class Os_appdController extends Controller
         $admins = Admin::all();
         $Outsourcings = Outsourcing::where('os_appd_id', '=', $os_appd->id)->get();
 
-        return Inertia::render('os_appds/edit', [
-            'work' => $Os_appd2Work,
-            'workspec' => $Work2Workspec,
-            'application' => $Workspec2Application,
-            'os_appd' => $os_appd,
-            'outsourcings' => $Outsourcings,
-            'client' => $client,
-            'creator' => $creator,
-            'user' => $user,
-            'admins' => $admins,
-        ]);
+        if ($user->roll === 'admin') {
+            return Inertia::render('Admin/os_appds/edit', [
+                'work' => $Os_appd2Work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'os_appd' => $os_appd,
+                'outsourcings' => $Outsourcings,
+                'client' => $client,
+                'creator' => $creator,
+                'user' => $user,
+                'admins' => $admins,
+            ]);
+        } else {
+            return Inertia::render('Creator/os_appds/edit', [
+                'work' => $Os_appd2Work,
+                'workspec' => $Work2Workspec,
+                'application' => $Workspec2Application,
+                'os_appd' => $os_appd,
+                'outsourcings' => $Outsourcings,
+                'client' => $client,
+                'creator' => $creator,
+                'user' => $user,
+                'admins' => $admins,
+            ]);
+        }
     }
 
     /**
@@ -103,7 +131,7 @@ class Os_appdController extends Controller
      */
     public function update(UpdateOs_appdRequest $request, Os_appd $os_appd)
     {
-        
+
         $os_appd->work_id = $request->work_id;
         $os_appd->comment = $request->comment;
         $os_appd->spec = $request->spec;
