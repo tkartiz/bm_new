@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CreatorSeeder::class,
             ApplicationSeeder::class,
-            WorkspecSeeder::class,
+            WorkSpecSeeder::class,
             WorkSeeder::class,
         ]);
 

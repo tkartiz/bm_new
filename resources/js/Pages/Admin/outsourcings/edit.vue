@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AAdminAuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';

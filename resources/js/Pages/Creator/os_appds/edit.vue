@@ -119,7 +119,6 @@ const updateWork = (id) => {
                                     </dl>
                                 </div>
                             </div>
-
                             <div class="p-5 bg-white">
                                 <BreezeValidationErrors :errors="errors" />
                                 <form @submit.prevent="updateWork(form.id)">

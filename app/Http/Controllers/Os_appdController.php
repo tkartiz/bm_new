@@ -138,18 +138,20 @@ class Os_appdController extends Controller
 
         $os_appd->order_recipient = $request->order_recipient;
         $Outsourcings = Outsourcing::where('os_appd_id', '=', $request->id)->get();
-        if ($request->order_recipient === $Outsourcings[0]['id']) {
-            $os_appd->order_recipient = $Outsourcings[0]['id'];
-            $os_appd->price_exc = $Outsourcings[0]['comp_price_exc'];
-            $os_appd->price_incl = $Outsourcings[0]['comp_price_incl'];
-        } elseif ($request->order_recipient === $Outsourcings[1]['id']) {
-            $os_appd->order_recipient = $Outsourcings[1]['id'];
-            $os_appd->price_exc = $Outsourcings[1]['comp_price_exc'];
-            $os_appd->price_incl = $Outsourcings[1]['comp_price_incl'];
-        } elseif ($request->order_recipient === $Outsourcings[2]['id']) {
-            $os_appd->order_recipient = $Outsourcings[2]['id'];
-            $os_appd->price_exc = $Outsourcings[2]['comp_price_exc'];
-            $os_appd->price_incl = $Outsourcings[2]['comp_price_incl'];
+        if ($Outsourcings !== null) {
+            if ($request->order_recipient === $Outsourcings[0]['id']) {
+                $os_appd->order_recipient = $Outsourcings[0]['id'];
+                $os_appd->price_exc = $Outsourcings[0]['comp_price_exc'];
+                $os_appd->price_incl = $Outsourcings[0]['comp_price_incl'];
+            } elseif ($request->order_recipient === $Outsourcings[1]['id']) {
+                $os_appd->order_recipient = $Outsourcings[1]['id'];
+                $os_appd->price_exc = $Outsourcings[1]['comp_price_exc'];
+                $os_appd->price_incl = $Outsourcings[1]['comp_price_incl'];
+            } elseif ($request->order_recipient === $Outsourcings[2]['id']) {
+                $os_appd->order_recipient = $Outsourcings[2]['id'];
+                $os_appd->price_exc = $Outsourcings[2]['comp_price_exc'];
+                $os_appd->price_incl = $Outsourcings[2]['comp_price_incl'];
+            }
         }
 
         $os_appd->price_list = $request->price_list;

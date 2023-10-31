@@ -4,6 +4,11 @@ import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 
 export default defineConfig({
+    //ここを追加！
+    server: {
+        host: true
+    },
+    
     plugins: [
         laravel({
             input: 'resources/js/app.js',
